@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import ReactDOM from "react-dom";
+import StreetViewContainer from "./StreetViewContainer";
 
 class MainContainer extends Component {
     render(){
@@ -8,7 +8,7 @@ class MainContainer extends Component {
                 <tbody>
                     <tr>
                         <td colSpan="1"> this is for map </td>
-                        <td>streetview </td>
+                        <td><StreetViewContainer/> </td>
                     </tr>
                     <tr>
                         <td></td>
