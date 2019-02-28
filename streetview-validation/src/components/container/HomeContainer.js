@@ -1,5 +1,6 @@
 import React,{Component} from "react";
 import StreetViewContainer from "./StreetViewContainer";
+import EditMapContainer from "./EditMapContainer"
 
 class MainContainer extends Component {
     constructor(props){
@@ -14,7 +15,7 @@ class MainContainer extends Component {
             <table className="home-table">
                 <tbody>
                     <tr>
-                        <td colSpan="1"> this is for map </td>
+                        <td> <EditMapContainer/> </td>
                         <td><StreetViewContainer/> </td>
                     </tr>
                     <tr>
