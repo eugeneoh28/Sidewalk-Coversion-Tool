@@ -2,6 +2,13 @@ import React,{Component} from "react";
 import StreetViewContainer from "./StreetViewContainer";
 
 class MainContainer extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+                coord : {x: null, y: null}
+        };
+        
+    }
     render(){
         return (
             <table className="home-table">
