@@ -5,9 +5,7 @@ import HomeContainer from "./components/container/HomeContainer";
 class App extends Component {
   render() {
     return (
-      <div className="Main">
         <HomeContainer/>
-      </div>
     );
   }
 }

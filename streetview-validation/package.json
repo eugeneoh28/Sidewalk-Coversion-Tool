@@ -3,12 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "leaflet": "^1.4.0",
     "leaflet-draw": "^1.0.4",
-=======
     "bingmaps": "^2.0.3",
->>>>>>> e8aa3d845da3e200817eedca97820e7135f168d6
     "react": "^16.8.3",
     "react-bingmaps": "^3.6.1",
     "react-dom": "^16.8.3",
