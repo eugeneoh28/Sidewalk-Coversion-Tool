@@ -7,13 +7,19 @@ import'leaflet-draw'
 class EditMapContainer extends Component {
     componentDidMount() {
         // create map
-        this.map = L.map('map').setView([47.604034, -122.33451], 18);
+        this.map = L.map('editMap').setView(this.props.coord, 18);
         L.tileLayer(
           'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
           }).addTo(this.map);
 
-        var editableLayers = new L.FeatureGroup().addTo(this.map);
+        var editableLayer = this.props.layers
+        this.map.addLayer(this.props.layers)
+
+        var marker = new L.marker(this.props.coord, {
+            draggable:true,
+            autoPan:true
+        }).addTo(this.map)
 
         var drawPluginOptions = {
           position: 'topleft',
@@ -26,31 +32,32 @@ class EditMapContainer extends Component {
             circlemarker:false
             },
           edit: {
-            featureGroup: editableLayers, //REQUIRED!!
+            featureGroup: editableLayer, //REQUIRED!!
             remove: true
           }
         };
 
+        marker.on("drag", (e) => {
+            let position = marker.getLatLng()
+            this.props.reFocus(position["lat"], position["lng"])
+        })
         // Initialise the draw control and pass it the FeatureGroup of editable layers
         var drawControl = new L.Control.Draw(drawPluginOptions);
         this.map.addControl(drawControl);
 
-        this.map.on('draw:created', function(e) {
+        this.map.on('draw:created', (e) => {
           var type = e.layerType,
             layer = e.layer;
           if (type === 'marker') {
             layer.bindPopup('A popup!');
           }
-          console.log(editableLayers)
-          editableLayers.addLayer(layer);
+          editableLayer.addLayer(layer);
         });
-
-        console.log(editableLayers.toGeoJSON())
         setTimeout(() => {this.map.invalidateSize(true)}, 100);
 
     }
   render() {
-    return <div id="map"></div>
+    return <div id="editMap"></div>
   }
 }
 export default EditMapContainer;

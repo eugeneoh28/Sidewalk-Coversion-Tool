@@ -1,6 +1,5 @@
 //AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0 
 import  React,{Component} from "react";
-import {ReactBingmaps} from 'react-bingmaps'
 class StreetViewContainer extends Component {
     // constructor(props){
     //     super(props);
@@ -36,9 +35,11 @@ class StreetViewContainer extends Component {
     }
 
     componentDidMount(){
+        let lat = this.props.coord[0]
+        let long = this.props.coord[1]
         window.GetMap =  function () {
-            var map = new window.Microsoft.Maps.Map('#myMap', {
-                center: new window.Microsoft.Maps.Location(51.50632, -0.12714),
+            var map = new window.Microsoft.Maps.Map('#streetMap', {
+                center: new window.Microsoft.Maps.Location(lat,long),
                 mapTypeId: window.Microsoft.Maps.MapTypeId.streetside,
                 //overviewMapMode : window.Microsoft.Maps.OverviewMapMode.hidden
                 streetsideOptions: { overviewMapMode : window.Microsoft.Maps.OverviewMapMode.hidden}
@@ -57,7 +58,7 @@ class StreetViewContainer extends Component {
 
     render() {
         return (
-            <div id="myMap" style={{position: 'relative',width: '600px',height: '400px'}}>
+            <div id="streetMap">
             </div>
             // <ReactBingmaps
             //     bingmapKey = "AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0"
