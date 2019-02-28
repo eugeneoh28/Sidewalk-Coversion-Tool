@@ -41,8 +41,8 @@ class StreetViewContainer extends Component {
                 center: new window.Microsoft.Maps.Location(51.50632, -0.12714),
                 mapTypeId: window.Microsoft.Maps.MapTypeId.streetside,
                 //overviewMapMode : window.Microsoft.Maps.OverviewMapMode.hidden
-                showZoomButtons : false,
-                showHeadingCompass : false
+                streetsideOptions: { overviewMapMode : window.Microsoft.Maps.OverviewMapMode.hidden}
+                //showHeadingCompass : false
             });
         }
 
