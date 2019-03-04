@@ -20,12 +20,12 @@ class QuestionContainer extends Component {
     }
 
     render() {
-        let answerForm = null;
+        let answerLayout = null;
         if (this.state.displayAnswers){
             const radioButtons = this.state.answers.map( (ans) =>
                 <RadioButton key="ans" value="apple" rootColor="lightblue"> {ans} </RadioButton>
             );
-            answerForm = (
+            answerLayout = (
                 <RadioGroup horizontal>
                     {radioButtons}
                 </RadioGroup>
@@ -35,7 +35,7 @@ class QuestionContainer extends Component {
         return (
             <div>
                 <button onClick={this.buttonClickHandler}>{this.state.question}</button>
-                {answerForm}
+                {answerLayout}
             </div>
         );
     }
