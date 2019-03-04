@@ -9,6 +9,7 @@ class MainContainer extends Component {
     constructor(){
         super();
         this.state = {
+                // [ latitude, longitude]
                 streetcoord: [47.604034,-122.33451],
                 coord : [47.604034, -122.33451],
                 layers: new L.FeatureGroup(),

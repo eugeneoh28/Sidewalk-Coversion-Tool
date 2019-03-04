@@ -57,7 +57,7 @@ class EditMapContainer extends Component {
 
     }
   render() {
-    return <div id="editMap"style={{position:"relative", width:"800px", height:"600px"}}></div>
+    return <div id="editMap" style={{position:"relative", width:"800px", height:"600px"}}></div>
   }
 }
 export default EditMapContainer;
