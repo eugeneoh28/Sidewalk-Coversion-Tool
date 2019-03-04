@@ -1,73 +1,50 @@
 //AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0 
 import  React,{Component} from "react";
+
 class StreetViewContainer extends Component {
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         map: undefined,
-    //         error: undefined
-    //     };
-    //     //this.scriptUrl = "http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0";
-             
-    //     this.loadScript = this.loadScript.bind(this);
-    // }
-
-    // loadScript() {
-    //     let script = document.createElement("script");
-    //     script.type = "text/javascipt";
-    //     script.async = true;
-    //     script.defer = true;
-    //     script.src =   "http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0";
-    // }
-
-    componentWillMount(){
-        // this.loadScript();
-        // window.getMap =  function () {
-        //     this.setState(() => {
-        //          map : new window.Microsoft.Maps.Map('#bingmap',{})
-        //      });
-        //  }
-        // this.map = new window.Microsoft.Maps.Map("#bingmap", {
-        //     credentials: "AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0",
-        //     center: new window.Microsoft.Maps.Location(51.50632 , -0.12714),
-        //     mapTypeId: window.Microsoft.Maps.MapTypeId.streetside
-        // })
+    constructor(props){
+        super(props);
+        this.state = {map : undefined};
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let lat = this.props.coord[0]
         let long = this.props.coord[1]
-        window.GetMap =  function () {
-            var map = new window.Microsoft.Maps.Map('#streetMap', {
-                center: new window.Microsoft.Maps.Location(lat,long),
-                mapTypeId: window.Microsoft.Maps.MapTypeId.streetside,
-                //overviewMapMode : window.Microsoft.Maps.OverviewMapMode.hidden
-                streetsideOptions: { overviewMapMode : window.Microsoft.Maps.OverviewMapMode.hidden,
-                                    showExitButton: false}
-                //showHeadingCompass : false
-            });
-        }
 
-        // this.map = new window.Microsoft.Maps.Map("#bingmap", {
-        //     credentials: "AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0",
-        //     center: new window.Microsoft.Maps.Location(51.50632 , -0.12714),
-        //     mapTypeId: window.Microsoft.Maps.MapTypeId.streetside
-        // })
+        //GetMap is a callback that is called when the BingMap script sucessfully loaded
+        // the map script is is /public/index.html
+        window.GetMap = () => {
+            //initialized Bing Map
+            var map = new window.Microsoft.Maps.Map('#streetMap', {
+                center: new window.Microsoft.Maps.Location(lat, long),
+                mapTypeId: window.Microsoft.Maps.MapTypeId.streetside,
+                streetsideOptions: {
+                    overviewMapMode: window.Microsoft.Maps.OverviewMapMode.hidden,
+                    showExitButton: false
+                }
+            });
+            //update state
+            this.setState ({map: map});
+        }
     }
 
-    
+    componentDidUpdate(prevProps) {
+        let prevCoord = prevProps.coord;
+        let currCoord = this.props.coord;
+        //check if any change in coordinate
+        if (currCoord[0] !== prevCoord[0] || currCoord[1] !== prevCoord[1]) {
+            let lat = currCoord[0]
+            let long = currCoord[1]
+            let location = new window.Microsoft.Maps.Location(lat, long);
+            this.state.map.setView({ center: location });
+        }
+    }
+       
 
     render() {
         return (
-            <div id="streetMap">
-            </div>
-            // <ReactBingmaps
-            //     bingmapKey = "AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0"
-            //     center={[47.604034, -122.33451]}
-            //     mapTypeId = {"streetside"}
-            // >
-            // </ReactBingmaps>
-        
+            <div id="streetMap" style={{position:"relative", width:"800px", height:"600px"}}> </div>
+          
         );
     }
 }

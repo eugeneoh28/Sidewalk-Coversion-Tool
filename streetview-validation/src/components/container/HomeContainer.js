@@ -18,6 +18,7 @@ class MainContainer extends Component {
         console.log(this.state.layers.toGeoJSON());
     }
 
+    //update this.state
     reFocus(lat, long) {
         const currcoord = this.state.coord;
         const currlayers = this.state.layers;
