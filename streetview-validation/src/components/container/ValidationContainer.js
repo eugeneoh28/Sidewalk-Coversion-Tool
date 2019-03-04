@@ -5,6 +5,7 @@ class ValidationContainer extends Component {
     constructor(props){
         super(props);
     
+    //later, we can fetch data from this class
     this.dataset = [
         {
             question: " what is 1 + 1?",

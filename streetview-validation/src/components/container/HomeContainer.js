@@ -11,8 +11,11 @@ class MainContainer extends Component {
         this.state = {
                 streetcoord: [47.604034,-122.33451],
                 coord : [47.604034, -122.33451],
-                layers: new L.FeatureGroup()
+                layers: new L.FeatureGroup(),
+                isNextClicked: false
         };
+
+        this.onNextClicked = this.onNextClicked.bind(this);
     }
 
     onClick() {
@@ -30,6 +33,14 @@ class MainContainer extends Component {
             currlayers: currlayers
         })
     }
+
+    //set isNextClicked to true when "Next" button clicked
+    onNextClicked(){
+        this.setState({
+            isNextClicked : true
+        })
+    }
+
     render(){
         return (
             <table className="main">
@@ -42,7 +53,8 @@ class MainContainer extends Component {
                 </tr>
                 <tr>
                     <td></td>
-                    <td> <ValidationContainer/> </td>
+                    {/** After "Next" button clicked, the button would be replace by ValidationContainer */}
+                    <td> {(!this.state.isNextClicked) ? <button onClick={this.onNextClicked}> next </button>  : <ValidationContainer/> } </td>
                 </tr>
                
             </tbody>
