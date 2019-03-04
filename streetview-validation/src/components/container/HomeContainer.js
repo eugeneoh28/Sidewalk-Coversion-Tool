@@ -3,6 +3,7 @@ import L from "leaflet";
 import "../../App.css"
 import StreetViewContainer from "./StreetViewContainer";
 import EditMapContainer from "./EditMapContainer"
+import ValidationContainer from "./ValidationContainer";
 
 class MainContainer extends Component {
     constructor(){
@@ -31,13 +32,25 @@ class MainContainer extends Component {
     }
     render(){
         return (
-            <div className="main">
-                <EditMapContainer layers={this.state.layers} coord={this.state.coord} reFocus={(lat, lng) => this.reFocus(lat,lng)}/>
-                <div className="sub">
-                    <StreetViewContainer coord={this.state.streetcoord} />
-                    <button onClick={() => this.onClick()}> Next </button>
-                </div>
-            </div>
+            <table className="main">
+            <tbody>
+                <tr>
+                    <td colSpan="1">
+                        <EditMapContainer layers={this.state.layers} coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
+                    </td>
+                    <td><StreetViewContainer coord={this.state.streetcoord} /></td>
+                </tr>
+                <tr>
+                   <td></td>
+                    <td>
+                        <div className="sub">
+                            <ValidationContainer/>
+                        </div>
+                    </td>
+                </tr>
+               
+            </tbody>
+            </table>
         );
     }
 }

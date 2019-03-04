@@ -39,7 +39,7 @@ class EditMapContainer extends Component {
 
         marker.on("drag", (e) => {
             let position = marker.getLatLng()
-            this.props.reFocus(position["lat"], position["lng"])
+            this.props.reFocusCallback(position["lat"], position["lng"])
         })
         // Initialise the draw control and pass it the FeatureGroup of editable layers
         var drawControl = new L.Control.Draw(drawPluginOptions);
@@ -57,7 +57,7 @@ class EditMapContainer extends Component {
 
     }
   render() {
-    return <div id="editMap"></div>
+    return <div id="editMap"style={{position:"relative", width:"800px", height:"600px"}}></div>
   }
 }
 export default EditMapContainer;

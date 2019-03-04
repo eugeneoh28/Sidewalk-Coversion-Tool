@@ -5,11 +5,10 @@
   "dependencies": {
     "leaflet": "^1.4.0",
     "leaflet-draw": "^1.0.4",
-    "bingmaps": "^2.0.3",
     "react": "^16.8.3",
-    "react-bingmaps": "^3.6.1",
     "react-dom": "^16.8.3",
     "react-leaflet": "^2.2.1",
+    "react-radio-buttons": "^1.2.2",
     "react-scripts": "2.1.5"
   },
   "scripts": {
