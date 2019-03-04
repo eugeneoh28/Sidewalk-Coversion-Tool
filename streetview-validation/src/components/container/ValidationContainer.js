@@ -17,7 +17,15 @@ class ValidationContainer extends Component {
         {
             question: " what is 1 * 2?",
             answers: ["1","2","3","4"] 
-        } 
+        },
+        {
+            question: " what is 2 * 2?",
+            answers: ["1","2","3","4"] 
+        },
+        {
+            question: " what is 2 + 2?",
+            answers: ["1","2","3","4"] 
+        }   
     ];
     }
     render(){
@@ -25,9 +33,12 @@ class ValidationContainer extends Component {
             <QuestionContainer key={element.question} question={element.question} answers={element.answers}/>
         );
         return (
-            <div>
-                {questionnaire}
-            </div>
+            <React.Fragment>
+                <div className="validation" style={{overflow:'auto', maxHeight:200}}>
+                    {questionnaire}
+                </div>
+                <button>Submit</button>
+            </React.Fragment>
         );
     }
 }

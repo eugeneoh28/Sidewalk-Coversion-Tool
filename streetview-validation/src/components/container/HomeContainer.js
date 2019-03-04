@@ -41,12 +41,8 @@ class MainContainer extends Component {
                     <td><StreetViewContainer coord={this.state.streetcoord} /></td>
                 </tr>
                 <tr>
-                   <td></td>
-                    <td>
-                        <div className="sub">
-                            <ValidationContainer/>
-                        </div>
-                    </td>
+                    <td></td>
+                    <td> <ValidationContainer/> </td>
                 </tr>
                
             </tbody>
