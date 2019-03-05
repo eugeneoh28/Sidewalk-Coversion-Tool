@@ -1,0 +1,14 @@
+Phuong
+1. https://www.denvergov.org/media/gis/DataCatalog/sidewalk_line_2016/shape/sidewalk_line_2016.zip (Download for shp file)
+2. Write a function to grab a bounding box that we can grab features from. 
+3. Write a function to check if the bounding box is within the city box limits
+4. Write 2 routes
+ - a GET route to get the bounding box data
+ - a POST route to send the vetted bounding box data to Nathan's midlayer api (geojson and in osm format)
+
+
+Eugene
+1. Add CSS  and make a usable UI
+2. Add relevants questions based upon what type of metadata we need to collect (user will vet)
+3. Write in the relevant api calls to grab bounding box and post bounding box
+4. Synch the position marker with the streetview map
