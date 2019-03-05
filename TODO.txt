@@ -1,6 +1,7 @@
 Phuong
 1. https://www.denvergov.org/media/gis/DataCatalog/sidewalk_line_2016/shape/sidewalk_line_2016.zip (Download for shp file)
 2. Write a function to grab a bounding box that we can grab features from. 
+    receive two corners of the bbox, send back features within that box
 3. Write a function to check if the bounding box is within the city box limits
 4. Write 2 routes
  - a GET route to get the bounding box data
