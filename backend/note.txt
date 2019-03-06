@@ -1,4 +1,9 @@
 run server:
     npm run start-dev in one terminal
     npm run webpack in another terminal
+
+https://dev.socrata.com/blog/2015/02/10/within-box-query-with-leaflet.html
     
+using turf lib to manipulate geojson
+    installation: npm install @turf/turf
+
