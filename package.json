@@ -4,7 +4,7 @@
   "description": "A generalizable script in order to change sidewalk centerlines into OSM form",
   "main": "server.js",
   "scripts": {
-    "start-dev": "nodemon --exec babel-node server.js",
+    "start-dev": "nodemon --exec babel-node ./backend/server.js",
     "webpack": "webpack --mode development"
   },
   "repository": {

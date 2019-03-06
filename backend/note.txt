@@ -1,0 +1,4 @@
+run server:
+    npm run start-dev in one terminal
+    npm run webpack in another terminal
+    
