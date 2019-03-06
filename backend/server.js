@@ -9,6 +9,8 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/getbbox', (req,  res) => {
+    //TODO: get a bounding box
+    // send back the lines that are within that bbox
     res.send("hello");
 });
 app.listen(3000,  () => console.log("Example app listening on port 3000!"));
