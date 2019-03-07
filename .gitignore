@@ -27,4 +27,4 @@ yarn-error.log*
 .vscode
 
 #auto-generated
-/public/bundles.js
+/public/bundle.js
