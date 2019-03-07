@@ -133,8 +133,18 @@ app.get('/getbbox', (req,  res) => {
     // let intersect = turf.intersect(polygon,turf.lineToPolygon(line));
     // console.log(intersect.geometry.coordinates);
     // console.log(points.features[0].geometry.coordinates);
-    // res.send("hello");
+     
+    var p1 = lineInBox.pointsWithinPolygon(polygon, data.features[0]);
+    var p2 = lineInBox.intersect(polygon, data.features[0]);
+    console.log(p1.features[0].geometry);
+    console.log(p2);
+    console.log("combined");
+    console.log(lineInBox.combine(p1, p2));
+    console.log("line");
+    lineInBox.getLineString(polygon, data.features[0]);
+    console.log(lineInBox.getLineString(polygon, data.features[0]).geometry.coordinates);
+    console.log("----------------------------------")
+    res.send("hello");
 
-    // console.log(data.features[0]);
 });
 app.listen(3000,  () => console.log("Example app listening on port 3000!"));
