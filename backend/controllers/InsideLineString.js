@@ -26,8 +26,8 @@ var combine = function ( points1, points2){
 }
 
 //return LineString that is on or within bounding box
-var getLineString = function(bbox, multiLine){
-     let polygon = turf.bboxPolygon(bbox);
+var getLineString = function(polygon, multiLine){
+     // let polygon = turf.bboxPolygon(bbox);
      let intersectPoints = intersect( polygon, multiLine);
      let pointsWithin = pointsWithinPolygon( polygon, multiLine);
      let pointsCollecion = combine( intersectPoints, pointsWithin);
@@ -35,7 +35,12 @@ var getLineString = function(bbox, multiLine){
      pointsCollecion.features.forEach(feature => {
           points.push(feature.geometry.coordinates);
      });
-     return turf.lineString(points);
+
+     if (points.length >= 2){
+          return turf.lineString(points);
+     }else {
+          return undefined;
+     }
 }
 
 export {intersect, pointsWithinPolygon, combine, getLineString};
