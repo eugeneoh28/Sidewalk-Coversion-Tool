@@ -1,5 +1,17 @@
 import * as turf from "@turf/turf";
 
+
+/*
+     This Javascript file is to get a LineString within
+     a bounding box from a given LineString.
+
+     It takes in a BBox and a FeatureCollection of  LineString. Then, it 
+     identifies any points intersection points between these objects and
+     any points on LineString that is within the BBox.
+     Combining the points just found to have a LineString.
+*/
+
+
 //return intersections points between a line and a polygon
 // return type: FeatureCollection of Point
 var intersect = function( polygon, multiLine){
@@ -26,8 +38,8 @@ var combine = function ( points1, points2){
 var getLineString = function(bbox, multiLine){
      let polygon = turf.bboxPolygon(bbox);
      let intersectPoints = intersect( polygon, multiLine);
-     let pointsWithin = pointsWithinPolygon( polygon, multiLine);
-     let pointsCollecion = combine( intersectPoints, pointsWithin);
+     let pointsWithinPoly = pointsWithinPolygon( polygon, multiLine);
+     let pointsCollecion = combine( intersectPoints, pointsWithinPoly);
      let coords= [];
      // extract coordinate only from each point and save it int "coords" array
      pointsCollecion.features.forEach(feature => {
