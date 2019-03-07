@@ -1,6 +1,8 @@
 const express = require("express")
 let  app = express()
 let turf = require("@turf/turf")
+let lineInBox = require("./controllers/LineInBBox");
+
 
 app.use(express.static('public'))
  
@@ -121,16 +123,18 @@ app.get('/getbbox', (req,  res) => {
         ]
     };
 
-    //console.log(data.features[0].geometry.coordinates);
-    let points = null;
-    //let coords = data.features[0].geometry.coordinates.map( x => parseFloat(x));
-    var coords = turf.points(data.features[0].geometry.coordinates) 
-    //console.log(coords)
-    points = turf.pointsWithinPolygon(coords, polygon);
+    // //console.log(data.features[0].geometry.coordinates);
+    // let points = null;
+    // //let coords = data.features[0].geometry.coordinates.map( x => parseFloat(x));
+    // var coords = turf.points(data.features[0].geometry.coordinates) 
+    // //console.log(coords)
+    // points = turf.pointsWithinPolygon(coords, polygon);
         
-    //let intersect = turf.intersect(polygon,turf.lineToPolygon(line));
-    //console.log(intersect.geometry.coordinates);
-    console.log(points.features[0].geometry.coordinates);
-    res.send("hello");
+    // let intersect = turf.intersect(polygon,turf.lineToPolygon(line));
+    // console.log(intersect.geometry.coordinates);
+    // console.log(points.features[0].geometry.coordinates);
+    // res.send("hello");
+
+    // console.log(data.features[0]);
 });
 app.listen(3000,  () => console.log("Example app listening on port 3000!"));
