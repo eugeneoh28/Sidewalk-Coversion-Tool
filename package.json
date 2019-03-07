@@ -20,6 +20,7 @@
   "homepage": "https://github.com/eugeneoh28/Sidewalk-Coversion-Tool#readme",
   "dependencies": {
     "@babel/runtime": "7.2.0",
+    "@turf/turf": "^5.1.6",
     "express": "^4.16.4",
     "leaflet": "^1.4.0",
     "leaflet-draw": "^1.0.4",
