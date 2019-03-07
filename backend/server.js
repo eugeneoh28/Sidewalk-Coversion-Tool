@@ -1,7 +1,7 @@
 const express = require("express")
 let  app = express()
 let turf = require("@turf/turf")
-let lineInBox = require("./controllers/InsideLineString");
+let lineInBox = require("./controllers/InnerLineString");
 
 
 app.use(express.static('public'))
