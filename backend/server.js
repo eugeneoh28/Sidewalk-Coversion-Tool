@@ -1,4 +1,7 @@
 const express = require("express")
+const fs = require('fs');
+const JSONStream = require('JSONStream');
+
 let  app = express()
 let turf = require("@turf/turf")
 let lineInBox = require("./controllers/InnerLineString");
@@ -147,14 +150,25 @@ app.post('/getbbox', (req, res) => {
     //TODO: get a bounding box
     // send back the lines that are within that bbox
 
-    var lineWithin = lineInBox.getLineString(turf.bbox(req.body), lineString.features[0]);
-    if (lineWithin === undefined){
-      res.send("undefined");
-    }else{
-      res.send(lineWithin);
-      
-    }
+    var stream = fs.createReadStream('small.geojson',{encoding: 'utf8'});
+    var parser = JSONStream.parse();
+    stream.pipe(parser);
+    parser.on('data', function(data){
+    //  console.log('key:', data.key);
+     // console.log('value:', data.value);
+     console.log(data.features[0].geometry);
+  
+    });
+    res.send("hi there");
     
+    // var lineWithin = lineInBox.getLineString(turf.bbox(req.body), lineString.features[0]);
+    // if (lineWithin === undefined){
+    //   res.send("undefined");
+    // }else{
+    //   res.send(lineWithin);
+      
+    // }
+
     console.log("--------------end------------------")
 });
 app.listen(3000,  () => console.log("Example app listening on port 3000!"));
