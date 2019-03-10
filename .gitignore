@@ -30,4 +30,4 @@ yarn-error.log*
 /public/bundle.js
 
 #sample data
-.geojson
+*.geojson
