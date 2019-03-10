@@ -40,13 +40,17 @@ var getLineString = function(bbox, multiLine){
      let intersectPoints = intersect( polygon, multiLine);
      let pointsWithinPoly = pointsWithinPolygon( polygon, multiLine);
      let pointsCollecion = combine( intersectPoints, pointsWithinPoly);
+
+     // array of coordinates that are inside bbox
      let coords= [];
+     
      // extract coordinate only from each point and save it int "coords" array
      pointsCollecion.features.forEach(feature => {
-          points.push(feature.geometry.coordinates);
+          coords.push(feature.geometry.coordinates);
      });
 
-     if (points.length >= 2){
+     // a lineString must have at least two coordinates
+     if (coords.length >= 2){
           return turf.lineString(coords);
      }else {
           return undefined;
