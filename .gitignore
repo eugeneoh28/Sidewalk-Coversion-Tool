@@ -12,6 +12,11 @@
 /build
 package-lock.json
 
+# webpack files
+.hot-update.js
+.hot-update.json
+/public/hot
+
 # misc
 .DS_Store
 .env.local

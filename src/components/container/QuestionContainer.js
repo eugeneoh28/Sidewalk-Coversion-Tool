@@ -4,7 +4,7 @@ import { RadioGroup, RadioButton } from 'react-radio-buttons';
 class QuestionContainer extends Component {
     constructor(props){
         super(props);
-        this.state ={
+        this.state = {
                 question : this.props.question,
                 answers : this.props.answers, 
                 displayAnswers : false}

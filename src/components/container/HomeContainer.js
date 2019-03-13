@@ -4,23 +4,19 @@ import "../../App.css"
 import StreetViewContainer from "./StreetViewContainer";
 import EditMapContainer from "./EditMapContainer"
 import ValidationContainer from "./ValidationContainer";
+import NavBar from "./NavBarContainer"
 
 class MainContainer extends Component {
     constructor(){
         super();
         this.state = {
                 // [ latitude, longitude]
-                streetcoord: [47.604034,-122.33451],
                 coord : [47.604034, -122.33451],
                 layers: new L.FeatureGroup(),
-                isNextClicked: false
+                validation: false
         };
 
         this.onNextClicked = this.onNextClicked.bind(this);
-    }
-
-    onClick() {
-        console.log(this.state.layers.toGeoJSON());
     }
 
     //update this.state
@@ -29,37 +25,40 @@ class MainContainer extends Component {
         const currlayers = this.state.layers;
 
         this.setState({
-            streetcoord: [lat, long],
-            coord: currcoord,
+            coord: [lat, long],
             currlayers: currlayers
         })
     }
 
     //set isNextClicked to true when "Next" button clicked
     onNextClicked(){
+        console.log(this.state.layers.toGeoJSON());
         this.setState({
-            isNextClicked : true
+            validation : true
         })
     }
 
     render(){
         return (
-            <table className="main">
-            <tbody>
-                <tr>
-                    <td colSpan="1">
-                        <EditMapContainer layers={this.state.layers} coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
-                    </td>
-                    <td><StreetViewContainer coord={this.state.streetcoord} /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    {/** After "Next" button clicked, the button would be replace by ValidationContainer */}
-                    <td> {(!this.state.isNextClicked) ? <button onClick={this.onNextClicked}> next </button>  : <ValidationContainer/> } </td>
-                </tr>
-               
-            </tbody>
-            </table>
+            <div className="main">
+                <NavBar onNextClicked={() => this.onNextClicked()}></NavBar>
+                <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <EditMapContainer layers={this.state.layers} coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
+                        </div>
+                        <div className="col">
+                            <StreetViewContainer coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
+                        </div>
+                        {/* * After "Next" button clicked, the button would be replace by ValidationContainer */}
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            {this.state.validation ? <ValidationContainer/> : null}
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
     }
 }

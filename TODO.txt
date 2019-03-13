@@ -13,4 +13,4 @@ Eugene
 1. Add CSS  and make a usable UI
 2. Add relevants questions based upon what type of metadata we need to collect (user will vet)
 3. Write in the relevant api calls to grab bounding box and post bounding box
-4. Synch the position marker with the streetview map
+4. Synch the position marker with the streetview map (DONE)

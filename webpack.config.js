@@ -24,7 +24,9 @@ module.exports = {
     output: {
         path: path.join(__dirname, "public"),
         filename: "bundle.js",
-        publicPath: "/"
+        publicPath: "/",
+        hotUpdateChunkFilename: 'hot/hot-update.js',
+        hotUpdateMainFilename: 'hot/hot-update.json'
     }, 
     plugins: [
         new webpack.HotModuleReplacementPlugin()
@@ -32,5 +34,6 @@ module.exports = {
     devServer: {
         hot: true,
         historyApiFallback: true
-    }
+    },
+    watch: true
 };
