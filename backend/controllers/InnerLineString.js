@@ -23,8 +23,15 @@ var intersect = function( polygon, multiLine){
 //return the points of coordinates which are inside a polygon
 //return type: FeatureCollection of Point 
 var pointsWithinPolygon = function ( polygon, multiLine){
-    let points = turf.points(multiLine.geometry.coordinates);
-    return turf.pointsWithinPolygon( points, polygon);
+     let points = [];
+     if (multiLine.geometry.type == "LineString"){
+          points = multiLine.geometry.coordinates;
+     } else if (multiLine.geometry.type == "MultiLineString"){
+          multiLine.geometry.coordinates.map( lineStringCoords => {
+          points = points.concat(lineStringCoords);
+          });
+     }
+     return turf.pointsWithinPolygon( turf.points(points), polygon);
 }
 
 //combine two Featurecollections of Point into MultiPoint
@@ -57,4 +64,4 @@ var getLineString = function(bbox, multiLine){
      }
 }
 
-export {getLineString};
+export {getLineString, intersect, pointsWithinPolygon,combine};
