@@ -34,64 +34,11 @@ var getLineString = function (bbox, featuresArray) {
                // create LineString and copy properties over
                linestring = turf.lineString(coords);
                linestring.properties = featuresArray[i].properties;
-               break;
+               break; // only one line interection returned
           }
      }
      return linestring;
 }
 
 
-export {getLineString};
-
-// //return intersections points between a line and a polygon
-// // return type: FeatureCollection of Point
-// var intersect = function( polygon, multiLine){
-//      var polyToLine = turf.polygonToLine(polygon);
-//      var points = turf.lineIntersect(multiLine, polyToLine);
-//      return points;
-// }
-
-// //return the points of coordinates which are inside a polygon
-// //return type: FeatureCollection of Point 
-// var pointsWithinPolygon = function ( polygon, multiLine){
-//      let points = [];
-//      if (multiLine.geometry.type == "LineString"){
-//           points = multiLine.geometry.coordinates;
-//      } else if (multiLine.geometry.type == "MultiLineString"){
-//           multiLine.geometry.coordinates.map( lineStringCoords => {
-//           points = points.concat(lineStringCoords);
-//           });
-//      }
-//      return turf.pointsWithinPolygon( turf.points(points), polygon);
-// }
-
-// //combine two Featurecollections of Point into MultiPoint
-// //return type: FeatureCollection of Point
-// var combine = function ( points1, points2){
-//      var fc = turf.featureCollection(points1.features.concat(points2.features));
-//      return fc;
-// }
-
-// //return LineString that is on or within bounding box
-// var getLineString = function(bbox, multiLine){
-//      let polygon = turf.bboxPolygon(bbox);
-//      let intersectPoints = intersect( polygon, multiLine);
-//      let pointsWithinPoly = pointsWithinPolygon( polygon, multiLine);
-//      let pointsCollection = combine( intersectPoints, pointsWithinPoly);
-
-//      // array of coordinates that are inside bbox
-//      let coords= [];
-
-//      // extract coordinate only from each point and save it int "coords" array
-//      pointsCollection.features.forEach(feature => {
-//           coords.push(feature.geometry.coordinates);
-//      });
-
-//      // a lineString must have at least two coordinates
-//      if (coords.length >= 2){
-//           return turf.lineString(coords);
-//      }else {
-//           return undefined;
-//      }
-// }
-
+export { getLineString };

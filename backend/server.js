@@ -51,24 +51,6 @@ app.get('/getbbox', (req, res) => {
   // ref: https://www.tutorialspoint.com/nodejs/nodejs_streams.htm
   parser.on('data', function (featuresArray) {
     linestring = InnerLineString.getLineString(sample_denver, featuresArray);
-    // for (var i = 0 ; i< featuresArray.length ; i++) {
-    //   var pointsCollection = [];
-    //   pointsCollection = turf.lineIntersect(featuresArray[i], sample_denver);
-    //   // need at least two points to draw a lineString
-    //   if (pointsCollection.features.length >= 2) {
-    //     // array of point coordinates 
-    //     var coords = [];
-
-    //     // extract coordinate from each point and save it in "coords" array
-    //     pointsCollection.features.forEach(feature => {
-    //       coords.push(feature.geometry.coordinates);
-    //     });
-    //     // create LineString and copy properties over
-    //     linestring = turf.lineString(coords);
-    //     linestring.properties = featuresArray[i].properties;
-    //     break;
-    //   }
-    // }
   });
   parser.on('end', function () {
     if (linestring == undefined) {
