@@ -5,6 +5,16 @@ import L from 'leaflet'
 import'leaflet-draw'
 
 class EditMapContainer extends Component {
+    componentDidUpdate(prevProps) {
+        let prevCoord = prevProps.coord;
+        let currCoord = this.props.coord;
+        //check if any change in coordinate
+        if (currCoord[0] !== prevCoord[0] || currCoord[1] !== prevCoord[1]) {
+            this.sv_marker.setLatLng(currCoord)
+        }
+
+    }
+
     componentDidMount() {
         // create map
         this.map = L.map('editMap').setView(this.props.coord, 18);
@@ -16,7 +26,7 @@ class EditMapContainer extends Component {
         var editableLayer = this.props.layers
         this.map.addLayer(this.props.layers)
 
-        var marker = new L.marker(this.props.coord, {
+        this.sv_marker = new L.marker(this.props.coord, {
             draggable:true,
             autoPan:true
         }).addTo(this.map)
@@ -37,8 +47,8 @@ class EditMapContainer extends Component {
           }
         };
 
-        marker.on("drag", (e) => {
-            let position = marker.getLatLng()
+        this.sv_marker.on("drag", (e) => {
+            let position = this.sv_marker.getLatLng()
             this.props.reFocusCallback(position["lat"], position["lng"])
         })
         // Initialise the draw control and pass it the FeatureGroup of editable layers
@@ -52,12 +62,13 @@ class EditMapContainer extends Component {
             layer.bindPopup('A popup!');
           }
           editableLayer.addLayer(layer);
+          console.log(editableLayer)
         });
         setTimeout(() => {this.map.invalidateSize(true)}, 100);
 
     }
   render() {
-    return <div id="editMap" style={{position:"relative", width:"800px", height:"600px"}}></div>
+    return <div id="editMap"></div>
   }
 }
 export default EditMapContainer;

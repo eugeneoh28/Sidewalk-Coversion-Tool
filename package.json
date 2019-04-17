@@ -20,16 +20,21 @@
   "homepage": "https://github.com/eugeneoh28/Sidewalk-Coversion-Tool#readme",
   "dependencies": {
     "@babel/runtime": "7.2.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "bootstrap": "^4.3.1",
     "@turf/turf": "^5.1.6",
     "JSONStream": "^1.3.5",
     "express": "^4.16.4",
     "leaflet": "^1.4.0",
     "leaflet-draw": "^1.0.4",
     "react": "^16.8.3",
+    "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.3",
     "react-leaflet": "^2.2.1",
     "react-radio-buttons": "^1.2.2",
-    "react-scripts": "2.1.5"
+    "react-redux": "^6.0.1",
+    "react-scripts": "2.1.5",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",

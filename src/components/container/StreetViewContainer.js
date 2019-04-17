@@ -23,6 +23,11 @@ class StreetViewContainer extends Component {
                     showExitButton: false
                 }
             });
+
+            window.Microsoft.Maps.Events.addHandler(map, 'viewchangeend', () => {
+                var center = map.getCenter();
+                this.props.reFocusCallback(center["latitude"], center["longitude"])
+            })
             //update state
             this.setState ({map: map});
         }
@@ -43,8 +48,7 @@ class StreetViewContainer extends Component {
 
     render() {
         return (
-            <div id="streetMap" style={{position:"relative", width:"800px", height:"600px"}}> </div>
-          
+            <div id="streetMap"> </div>       
         );
     }
 }
