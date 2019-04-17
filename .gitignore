@@ -30,3 +30,10 @@ yarn-error.log*
 
 #vs code debugger
 .vscode
+
+#auto-generated
+/public/bundle.js
+
+#sample data
+*.geojson
+!sample.geojson

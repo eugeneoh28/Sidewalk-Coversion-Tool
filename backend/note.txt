@@ -1,0 +1,13 @@
+run server:
+    npm run start-dev in one terminal
+    npm run webpack in another terminal
+
+https://dev.socrata.com/blog/2015/02/10/within-box-query-with-leaflet.html
+    
+using turf lib to manipulate geojson
+    installation: npm install @turf/turf
+
+use crossing feature in turf to find out if bbox crosses any linestring in dataset
+if not, do nothing
+if does, get intersection points as well as is properties
+any edge cases????
