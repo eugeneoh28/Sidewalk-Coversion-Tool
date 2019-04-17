@@ -31,3 +31,4 @@ yarn-error.log*
 
 #sample data
 *.geojson
+!sample.geojson
