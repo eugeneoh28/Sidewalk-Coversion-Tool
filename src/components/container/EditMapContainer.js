@@ -12,6 +12,7 @@ class EditMapContainer extends Component {
         if (currCoord[0] !== prevCoord[0] || currCoord[1] !== prevCoord[1]) {
             this.sv_marker.setLatLng(currCoord)
         }
+
     }
 
     componentDidMount() {
@@ -61,6 +62,7 @@ class EditMapContainer extends Component {
             layer.bindPopup('A popup!');
           }
           editableLayer.addLayer(layer);
+          console.log(editableLayer)
         });
         setTimeout(() => {this.map.invalidateSize(true)}, 100);
 

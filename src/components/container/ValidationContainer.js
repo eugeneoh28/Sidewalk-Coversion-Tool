@@ -1,12 +1,14 @@
 import React, {Component} from "react";
-import QuestionContainer from "./QuestionContainer";
+import { RadioGroup, RadioButton } from 'react-radio-buttons';
+import QuestionContainer from "../presentational/QuestionContainer";
 
 class ValidationContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
-            questions: [],
-            feature: null
+            feature_id: 0,
+            questions: [],            
+            data: this.props.data
         }
         //later, we can fetch data from this class
         this.dataset = {
@@ -17,25 +19,42 @@ class ValidationContainer extends Component {
                 },
                 {
                     "question": " what is 1 + 2?",
-                    "answers": ["1","2","3","4"] 
+                    "answers": ["5","6","7","8"] 
                 },
                 {
                     "question": " what is 1 * 2?",
-                    "answers": ["1","2","3","4"] 
+                    "answers": ["9","10","11","12"] 
                 }   
             ],
             "crossing": [
                 {
                     "question": "Are there raised curbs on this crossing?",
-                    "answers": ["Yes", "No"]
+                    "answers": ["Yes", "No"],
+                    "datatype" : "curbs"
                 },
                 {
                     "question": "Are there markings on this crossing?",
-                    "answers": ["Yes", "No"]
+                    "answers": ["Yes", "No"],
+                    "datatype" : "crossing"
                 }
             ]
 
         };
+    }
+
+    next = (data) => {
+        console.log(this.state.data)
+        let id = this.state.feature_id
+        let prev = this.state.data.features[id].properties;
+        this.state.data.features[id].properties = Object.assign({}, prev, data);
+       
+    }
+
+    nextFeature = () => {
+        this.props.validateCallback(this.state.data)
+        this.setState({
+            feature_id : id++
+        })
     }
 
     confirmation = () => {
@@ -48,33 +67,30 @@ class ValidationContainer extends Component {
 
     chooseFeature = (e) => {
         this.setState({
-            feature : e.target.value 
+            feature : String(e)
         })
     }
     render(){
+        const choices = Object.keys(this.dataset).map((element) =>
+            <RadioButton key={element} value={element}>{element}</RadioButton>
+        );
         const intro = (
-            <p>What type of feature is this?</p>
+            <React.Fragment>
+                <h3>What type of feature is this?</h3>
+                <RadioGroup horizontal onChange={this.chooseFeature}>
+                    {choices}
+                </RadioGroup>
+                <button onClick={this.confirmation}>Next</button>
+            </React.Fragment>
         );
-        const confirm = (
-            <button onClick={this.confirmation}>Next</button>
-        );
-        const choices = Object.keys(this.dataset).map( (element) =>
-            <div key={element}>
-                <input type="radio" key={element} value={element} onChange={this.chooseFeature}/>{element}
-            </div>
-        );
-        const questionnaire = this.state.questions.map( (element) => 
-            <QuestionContainer key={element.question} question={element.question} answers={element.answers}/>
-        );
+        const questionnaire = <QuestionContainer next={(data) => this.next(data)} feature_id={this.state.feature_id} question={this.state.questions}/>
+        
         
         return (
             <React.Fragment>
-                <div className="validation" style={{overflow:'auto', maxHeight:200}}>
-                    {this.state.questions.length != 0 ? null : intro}
-                    {this.state.questions.length != 0 ? questionnaire : choices}
-                    {this.state.questions.length != 0 ? null : confirm}
+                <div className="validation" style={{overflow:'auto', maxHeight:400}}>
+                    {this.state.questions.length != 0 ? questionnaire : intro}
                 </div>
-                <button>Submit</button>
             </React.Fragment>
         );
     }
