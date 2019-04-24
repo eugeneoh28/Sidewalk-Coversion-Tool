@@ -4,7 +4,6 @@ import "../../App.css"
 import StreetViewContainer from "./StreetViewContainer";
 import EditMapContainer from "./EditMapContainer"
 import ValidationContainer from "./ValidationContainer";
-import SatelliteViewContainer from "./SatteliteViewContainer"
 import NavBar from "./NavBarContainer"
 
 class MainContainer extends Component {
@@ -77,9 +76,6 @@ class MainContainer extends Component {
         const map = (
                 <div className="container">
                     <div className="row">
-                        <div className="col">
-                            <SatelliteViewContainer />
-                        </div>
                         <div className="col">
                             <EditMapContainer layers={this.state.layers} coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
                         </div>
