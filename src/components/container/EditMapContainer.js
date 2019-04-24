@@ -1,4 +1,5 @@
-//AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0 
+//bingmap token: AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0 
+//mapbox token: pk.eyJ1IjoicHRyYW44MTYiLCJhIjoiY2p1dTI3YTNnMDJveDN5bXFjMDd1MG92bCJ9.jSeVTjBT1A_wgh63ETE9Lg
 import React, { Component } from "react";
 import { render } from 'react-dom'
 import L from 'leaflet'
@@ -23,7 +24,7 @@ class EditMapContainer extends Component {
     }).setView(this.props.coord, 18);
 
     // create base map layers and add them to map
-    // ref: https://leafletjs.com/examples/layers-control/
+    // reference: https://leafletjs.com/examples/layers-control/
     let streets = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
@@ -82,6 +83,11 @@ class EditMapContainer extends Component {
       editableLayer.addLayer(layer);
       console.log(editableLayer)
     });
+    // https://leafletjs.com/reference-1.4.0.html#layergroup
+    drawPluginOptions.edit.featureGroup
+    // this.map.on('click', event => {
+    //   alert("hi")
+    // });
     setTimeout(() => { this.map.invalidateSize(true) }, 100);
 
   }
