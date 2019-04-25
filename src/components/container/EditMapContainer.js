@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { render } from 'react-dom'
 import L from 'leaflet'
 import 'leaflet-draw'
+import { EMLINK } from "constants";
 
 class EditMapContainer extends Component {
   componentDidUpdate(prevProps) {
@@ -36,7 +37,9 @@ class EditMapContainer extends Component {
       "Streets": streets,
       "Satellite": satellite
     };
+    // add base maps, overlays is null
     L.control.layers(baseMaps,null,{collapsed:false}).addTo(this.map);
+
 
     var editableLayer = this.props.layers
     this.map.addLayer(this.props.layers)
@@ -45,9 +48,6 @@ class EditMapContainer extends Component {
       draggable: true,
       autoPan: true
     }).addTo(this.map)
-
-
-
 
     var drawPluginOptions = {
       position: 'topleft',
@@ -59,6 +59,7 @@ class EditMapContainer extends Component {
         polygon: false,
         circlemarker: false
       },
+  
       edit: {
         featureGroup: editableLayer, //REQUIRED!!
         remove: true
@@ -79,15 +80,22 @@ class EditMapContainer extends Component {
       if (type === 'marker') {
         layer.bindPopup('A popup!');
       }
+      // reference for click event: https://github.com/Leaflet/Leaflet.draw/issues/179
+      layer.on('click', (e) => {
+        // ref: https://stackoverflow.com/questions/29000768/change-polyline-options-leaflet
+        // reference to this https://github.com/Leaflet/Leaflet.draw/blob/master/src/draw/handler/Draw.Polyline.js#L20
+        // to know which option of setStyle is available
+        layer.setStyle({ color: 'blue'});
+        layer.setStyle({opacity:1})
+      });
+
       console.log(layer);
       editableLayer.addLayer(layer);
       console.log(editableLayer)
     });
     // https://leafletjs.com/reference-1.4.0.html#layergroup
     drawPluginOptions.edit.featureGroup
-    // this.map.on('click', event => {
-    //   alert("hi")
-    // });
+    
     setTimeout(() => { this.map.invalidateSize(true) }, 100);
 
   }
