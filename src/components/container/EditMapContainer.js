@@ -49,7 +49,7 @@ class EditMapContainer extends Component {
     var editableLayer = this.props.layers
     this.map.addLayer(this.props.layers)
 
-    this.sv_marker = new L.marker(this.props.coord, {
+    this.sv_marker = new L.marker(this.props.streetview, {
       draggable: true,
       autoPan: true
     }).addTo(this.map)
