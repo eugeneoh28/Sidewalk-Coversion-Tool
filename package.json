@@ -11,6 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/eugeneoh28/Sidewalk-Coversion-Tool.git"
   },
+  "proxy": "http://localhost:5000/",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -33,7 +34,7 @@
     "react-leaflet": "^2.2.1",
     "react-radio-buttons": "^1.2.2",
     "react-redux": "^6.0.1",
-    "react-scripts": "2.1.5",
+    "react-scripts": "^2.1.8",
     "redux": "^4.0.1"
   },
   "devDependencies": {
