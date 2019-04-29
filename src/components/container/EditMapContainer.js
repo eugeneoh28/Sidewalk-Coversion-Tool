@@ -6,8 +6,8 @@ import'leaflet-draw'
 
 class EditMapContainer extends Component {
     componentDidUpdate(prevProps) {
-        let prevCoord = prevProps.coord;
-        let currCoord = this.props.coord;
+        let prevCoord = prevProps.streetview;
+        let currCoord = this.props.streetview;
         //check if any change in coordinate
         if (currCoord[0] !== prevCoord[0] || currCoord[1] !== prevCoord[1]) {
             this.sv_marker.setLatLng(currCoord)
@@ -17,7 +17,7 @@ class EditMapContainer extends Component {
 
     componentDidMount() {
         // create map
-        this.map = L.map('editMap').setView(this.props.coord, 18);
+        this.map = L.map('editMap').fitBounds(this.props.coord);
         L.tileLayer(
           'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
@@ -26,7 +26,7 @@ class EditMapContainer extends Component {
         var editableLayer = this.props.layers
         this.map.addLayer(this.props.layers)
 
-        this.sv_marker = new L.marker(this.props.coord, {
+        this.sv_marker = new L.marker(this.props.streetview, {
             draggable:true,
             autoPan:true
         }).addTo(this.map)

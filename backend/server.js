@@ -5,42 +5,26 @@ const JSONStream = require('JSONStream');
 let app = express()
 let turf = require("@turf/turf")
 let InnerLineString = require("./controllers/InnerLineString");
+require("babel-core/register");
+if (!global._babelPolyfill) {
+  require('babel-polyfill');
+}
 
 
 app.use(express.static('public'))
 app.use(express.json());
 
-var sample_denver = {
+var sample = {
   "type": "Feature",
   "properties": {},
   "geometry": {
     "type": "Polygon",
     "coordinates": [
-      [
-        [
-          -105.06016373634338,
-          39.61437523220512
-        ],
-        [
-          -105.05883872509003,
-          39.61437523220512
-        ],
-        [
-          -105.05883872509003,
-          39.61444961711276
-        ],
-        [
-          -105.06016373634338,
-          39.61444961711276
-        ],
-        [
-          -105.06016373634338,
-          39.61437523220512
-        ]
-      ]
+      []
     ]
   }
 }
+
 
 app.get('/getbbox', (req, res) => {
   var stream = fs.createReadStream('./backend/sample.geojson', { encoding: 'utf8' });
@@ -48,15 +32,25 @@ app.get('/getbbox', (req, res) => {
   var parser = JSONStream.parse(["features"]); // filter features only 
   stream.pipe(parser);
   var linestring;
+  console.error(req.query.point1);
+  let query = [[JSON.parse(req.query.point1), JSON.parse(req.query.point2)]]
+  sample.geometry.coordinates = query
   // ref: https://www.tutorialspoint.com/nodejs/nodejs_streams.htm
   parser.on('data', function (featuresArray) {
-    linestring = InnerLineString.getLineString(sample_denver, featuresArray);
+    linestring = InnerLineString.getLineString(sample, featuresArray);
   });
+  
   parser.on('end', function () {
     if (linestring == undefined) {
-      res.send("no line intersection");
+      let data = {
+        "res" : "no line intersection"
+      }
+      res.send(data);
     } else {
-      res.send(linestring);
+      let data =  {
+        "res" : linestring
+      }
+      res.send(data);
     }
     stream.close();
   });

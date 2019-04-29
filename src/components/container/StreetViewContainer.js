@@ -8,8 +8,8 @@ class StreetViewContainer extends Component {
     }
 
     componentDidMount() {
-        let lat = this.props.coord[0]
-        let long = this.props.coord[1]
+        let lat = this.props.streetview[0]
+        let long = this.props.streetview[1]
 
         //GetMap is a callback that is called when the BingMap script sucessfully loaded
         // the map script is is /public/index.html
@@ -34,8 +34,8 @@ class StreetViewContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        let prevCoord = prevProps.coord;
-        let currCoord = this.props.coord;
+        let prevCoord = prevProps.streetview;
+        let currCoord = this.props.streetview;
         //check if any change in coordinate
         if (currCoord[0] !== prevCoord[0] || currCoord[1] !== prevCoord[1]) {
             let lat = currCoord[0]
