@@ -7,22 +7,22 @@ import 'leaflet-draw'
 import { EMLINK } from "constants";
 
 class EditMapContainer extends Component {
-  componentDidUpdate(prevProps) {
-    let prevCoord = prevProps.coord;
-    let currCoord = this.props.coord;
-    //check if any change in coordinate
-    if (currCoord[0] !== prevCoord[0] || currCoord[1] !== prevCoord[1]) {
-      this.sv_marker.setLatLng(currCoord)
-    }
+    componentDidUpdate(prevProps) {
+        let prevCoord = prevProps.streetview;
+        let currCoord = this.props.streetview;
+        //check if any change in coordinate
+        if (currCoord[0] !== prevCoord[0] || currCoord[1] !== prevCoord[1]) {
+            this.sv_marker.setLatLng(currCoord)
+        }
 
-  }
+    }
 
   componentDidMount() {
     // create map
     this.map = L.map('editMap',{
       minZoom:15,
       maxZoom:18 // less than or equal 18, cannot be greater than 18
-    }).setView(this.props.coord, 18);
+    }).setView(this.props.streetview, 18);
 
     // create base map layers and add them to map
     // reference: https://leafletjs.com/examples/layers-control/
@@ -39,6 +39,11 @@ class EditMapContainer extends Component {
     };
     // add base maps, overlays is null
     L.control.layers(baseMaps,null,{collapsed:false}).addTo(this.map);
+
+        this.sv_marker = new L.marker(this.props.streetview, {
+            draggable:true,
+            autoPan:true
+        }).addTo(this.map)
 
 
     var editableLayer = this.props.layers

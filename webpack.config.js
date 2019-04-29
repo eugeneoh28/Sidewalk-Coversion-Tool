@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require('webpack');
 
 module.exports = {
-    entry: path.join(__dirname, "src", "index.js"),
+    entry: ["babel-polyfill", path.join(__dirname, "src", "index.js")],
     module: {
         rules: [
           {
@@ -29,7 +29,9 @@ module.exports = {
         hotUpdateMainFilename: 'hot/hot-update.json'
     }, 
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin({
+            inject: false
+        })
     ],
     devServer: {
         hot: true,

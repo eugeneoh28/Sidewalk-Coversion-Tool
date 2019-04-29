@@ -12,8 +12,9 @@ class MainContainer extends Component {
         this.state = {
                 // [ latitude, longitude]
                 coord : [],
-                lat: "",
-                long: "",
+                streetview: [],
+                lat1: "",
+                long1: "",
                 layers: new L.FeatureGroup(),
                 validatedData : {},
                 validation: false
@@ -21,18 +22,19 @@ class MainContainer extends Component {
 
         this.onNextClicked = this.onNextClicked.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.changeLat = this.changeLat.bind(this);
-        this.changeLong = this.changeLong.bind(this);
-
+        this.changeLat1 = this.changeLat1.bind(this);
+        this.changeLong1 = this.changeLong1.bind(this);
+        this.changeLat2 = this.changeLat2.bind(this);
+        this.changeLong2 = this.changeLong2.bind(this);
     }
 
     //update this.state
     reFocus(lat, long) {
-        const currcoord = this.state.coord;
+        const currcoord = this.state.streetview;
         const currlayers = this.state.layers;
 
         this.setState({
-            coord: [lat, long],
+            streetview: [lat, long],
             currlayers: currlayers
         })
     }
@@ -52,23 +54,57 @@ class MainContainer extends Component {
         console.log(this.state.validatedData)
     }
 
-    handleSubmit() {
-        let lat = this.state.lat
-        let long = this.state.long
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log("here");
+        let lat1 = Number(this.state.lat1)
+        let long1 = Number(this.state.long1)
+        let lat2 = Number(this.state.lat2)
+        let long2 = Number(this.state.long2)
+
+        let point1 = String([lat1, long1])
+        let point2 = String([lat2, long2])
+        let q = "point1=[".concat(point1).concat("]").concat("&point2=[").concat(point2).concat("]")
+        console.log('/getbbox'.concat(q));
+
+        const response = await fetch('/getbbox?'.concat(q))
+        const body = await response.json();
+
+        if (response.status !== 200) throw Error (body.message)
+
+        console.log(body)
+        let midlat = (lat1 + lat2)/2
+        let midlong = (long1 + long2)/2
+        console.log(typeof(lat1))
+        console.log(midlat)
+        console.log(midlong)
         this.setState({
-            coord : [lat, long]
+            coord : [[lat1, long1],[lat2, long2]],
+            streetview: [midlat, midlong]
         })
     }
 
-    changeLat(e) {
+    changeLat1(e) {
         this.setState({
-            lat: e.target.value
+            lat1: e.target.value
         })
     }
 
-    changeLong(e) {
+    changeLong1(e) {
         this.setState({
-            long: e.target.value
+            long1: e.target.value
+        })
+    }
+
+    changeLat2(e) {
+        this.setState({
+            lat2: e.target.value
+        })
+    }
+
+    changeLong2(e) {
+        this.setState({
+            long2: e.target.value
         })
     }
 
@@ -77,10 +113,10 @@ class MainContainer extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <EditMapContainer layers={this.state.layers} coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
+                            <EditMapContainer layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
                         </div>
                         <div className="col">
-                            <StreetViewContainer coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
+                            <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
                         </div>
                     </div>
                     <div className="row">
@@ -95,13 +131,19 @@ class MainContainer extends Component {
                 <div className="container">
                     <form onSubmit={this.handleSubmit}>
                         <label>
-                          <p>Lat:</p>
-                          <textarea onChange={this.changeLat}/>
-                          <p>Long:</p>
-                          <textarea onChange={this.changeLong} />
+                          <p>Lat 1:</p>
+                          <textarea onChange={this.changeLat1}/>
+                          <p>Long 1:</p>
+                          <textarea onChange={this.changeLong1} />
+                        </label>
+                        <label>
+                          <p>Lat 2:</p>
+                          <textarea onChange={this.changeLat2}/>
+                          <p>Long 2:</p>
+                          <textarea onChange={this.changeLong2} />
                         </label>
                         <br />
-                        <input type="submit" value="Submit" />
+                        <button type="submit">Submit</button>
                       </form>
                 </div>
             )
