@@ -26,7 +26,6 @@ class MainContainer extends Component {
         this.changeLong1 = this.changeLong1.bind(this);
         this.changeLat2 = this.changeLat2.bind(this);
         this.changeLong2 = this.changeLong2.bind(this);
-        
     }
 
     //update this.state
