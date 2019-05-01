@@ -6,16 +6,34 @@ import EditMapContainer from "./EditMapContainer"
 import ValidationContainer from "./ValidationContainer";
 import NavBar from "./NavBarContainer"
 
+
+const sampleData = {
+  "type": "FeatureCollection",
+  "features": [
+    { "type": "Feature", "properties": { },
+     "geometry": { "type": 
+              "LineString", 
+              "coordinates": [[-122.336445, 47.614721],
+                             [-122.335718, 47.615127]]
+                 } }
+  ]
+};
+
 class MainContainer extends Component {
     constructor(){
         super();
+        let nlayers = new L.FeatureGroup();
+        let glayers = L.geoJson(sampleData);
+        glayers.eachLayer((l) => {
+             nlayers.addLayer(l)
+        })
         this.state = {
                 // [ latitude, longitude]
                 coord : [],
                 streetview: [],
                 lat1: "",
                 long1: "",
-                layers: new L.FeatureGroup(),
+                layers: nlayers,
                 validatedData : {},
                 validation: false
         };
@@ -41,9 +59,18 @@ class MainContainer extends Component {
 
     //set isNextClicked to true when "Next" button clicked
     onNextClicked(){
+        let vData = this.state.layers.toGeoJSON()
         this.setState({
-            validatedData : this.state.layers.toGeoJSON(),
+            validatedData : vData,
             validation : true
+        })
+        console.log(this.state.layers.toGeoJSON())
+        console.log(this.state.validatedData)
+    }
+
+    updateLayerData(nlayers) {
+        this.setState({
+            layers: nlayers
         })
     }
 
@@ -113,7 +140,7 @@ class MainContainer extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <EditMapContainer layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
+                            <EditMapContainer layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(layers) => this.updateLayerData(layers)} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
                         </div>
                         <div className="col">
                             <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />

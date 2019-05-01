@@ -93,9 +93,11 @@ class EditMapContainer extends Component {
         layer.setStyle({ color: 'blue'});
         layer.setStyle({opacity:1})
       });
-
+      layer.type = "Feature";
+      layer.properties = layer.properties || {};
       console.log(layer);
       editableLayer.addLayer(layer);
+      this.props.updateLayerData(editableLayer);
       console.log(editableLayer)
     });
     // https://leafletjs.com/reference-1.4.0.html#layergroup
