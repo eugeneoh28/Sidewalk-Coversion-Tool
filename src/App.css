@@ -49,3 +49,7 @@ h1, h2, h3, h4 {
   border-top: 1px solid #f9a11b;
   font-size: 14px;
 }
+.validation {
+  overflow:'auto';
+  max-height:400
+}
