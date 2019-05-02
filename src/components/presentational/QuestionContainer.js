@@ -1,6 +1,6 @@
 import  React,{Component} from "react";
-import {Form,ButtonGroup,Dropdown} from "react-bootstrap";
-
+import {ButtonGroup,Dropdown} from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 class QuestionContainer extends Component {
     constructor(props){
         super(props);
@@ -39,7 +39,7 @@ class QuestionContainer extends Component {
             return <Dropdown.Item key={index} eventKey={index} onSelect={this.questionHandler}>{element["question"]}</Dropdown.Item>
         });
         let answers = this.props.question[this.state.q_no].answers.map((ans, index) => {
-            return <Form.Check custom type='radio' key={index} label={ans} />
+            return <Form.Check custom type='radio' key={index} id={index} label={ans} />
         });        
         return (
             <div>
@@ -51,7 +51,7 @@ class QuestionContainer extends Component {
                     </Dropdown.Menu>
                 </Dropdown>
                 <Form onClick={this.answerHandler}>
-                    {answers}
+                        {answers}
                 </Form>
             </div>
         );
