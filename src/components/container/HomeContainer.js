@@ -5,7 +5,7 @@ import StreetViewContainer from "./StreetViewContainer";
 import EditMapContainer from "./EditMapContainer"
 import ValidationContainer from "./ValidationContainer";
 import NavBar from "./NavBarContainer"
-
+import FooterContainer from './FooterContainer';
 class MainContainer extends Component {
     constructor(){
         super();
