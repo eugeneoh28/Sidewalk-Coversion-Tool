@@ -7,6 +7,14 @@ import 'leaflet-draw'
 import { EMLINK } from "constants";
 
 class EditMapContainer extends Component {
+    constructor(props) {
+      super(props);
+      this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+      alert("hi");
+    }
     componentDidUpdate(prevProps) {
         let prevCoord = prevProps.streetview;
         let currCoord = this.props.streetview;
@@ -85,7 +93,8 @@ class EditMapContainer extends Component {
         // reference to this https://github.com/Leaflet/Leaflet.draw/blob/master/src/draw/handler/Draw.Polyline.js#L20
         // to know which option of setStyle is available
         layer.setStyle({ color: 'blue'});
-        layer.setStyle({opacity:1})
+        layer.setStyle({opacity:1});
+        this.handleClick(); // triggered when a line clicked
       });
       layer.type = "Feature";
       layer.properties = layer.properties || {};
@@ -104,4 +113,5 @@ class EditMapContainer extends Component {
     return <div id="editMap"></div>
   }
 }
+
 export default EditMapContainer;
