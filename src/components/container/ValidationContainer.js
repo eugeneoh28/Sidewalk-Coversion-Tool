@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import QuestionContainer from "../presentational/QuestionContainer";
+import Form from 'react-bootstrap/Form'
+import data from "../validateQuestions";
+import '../../App.css'
 
 class ValidationContainer extends Component {
     constructor(props){
@@ -10,36 +13,37 @@ class ValidationContainer extends Component {
             questions: [],            
             data: this.props.data
         }
-        //later, we can fetch data from this class
-        this.dataset = {
-            "sidewalk": [
-                {
-                    "question": " what is 1 + 1?",
-                    "answers": ["1","2","3","4"]    
-                },
-                {
-                    "question": " what is 1 + 2?",
-                    "answers": ["5","6","7","8"] 
-                },
-                {
-                    "question": " what is 1 * 2?",
-                    "answers": ["9","10","11","12"] 
-                }   
-            ],
-            "crossing": [
-                {
-                    "question": "Are there raised curbs on this crossing?",
-                    "answers": ["Yes", "No"],
-                    "datatype" : "curbs"
-                },
-                {
-                    "question": "Are there markings on this crossing?",
-                    "answers": ["Yes", "No"],
-                    "datatype" : "crossing"
-                }
-            ]
+        this.dataset = data;
+       // later, we can fetch data from this class
+        // this.dataset = {
+        //     "sidewalk": [
+        //         {
+        //             "question": " what is 1 + 1?",
+        //             "answers": ["1","2","3","4"]    
+        //         },
+        //         {
+        //             "question": " what is 1 + 2?",
+        //             "answers": ["5","6","7","8"] 
+        //         },
+        //         {
+        //             "question": " what is 1 * 2?",
+        //             "answers": ["9","10","11","12"] 
+        //         }   
+        //     ],
+        //     "crossing": [
+        //         {
+        //             "question": "Are there raised curbs on this crossing?",
+        //             "answers": ["Yes", "No"],
+        //             "datatype" : "curbs"
+        //         },
+        //         {
+        //             "question": "Are there markings on this crossing?",
+        //             "answers": ["Yes", "No"],
+        //             "datatype" : "crossing"
+        //         }
+        //     ]
 
-        };
+        // };
     }
 
     next = (data) => {
@@ -72,7 +76,7 @@ class ValidationContainer extends Component {
     }
     render(){
         const choices = Object.keys(this.dataset).map((element) =>
-            <RadioButton key={element} value={element}>{element}</RadioButton>
+            <RadioButton key={element} value={element} iconSize={20} iconInnerSize={8} >{element}</RadioButton>
         );
         const intro = (
             <React.Fragment>
@@ -88,7 +92,7 @@ class ValidationContainer extends Component {
         
         return (
             <React.Fragment>
-                <div className="validation" style={{overflow:'auto', maxHeight:400}}>
+                <div className="validation">
                     {this.state.questions.length != 0 ? questionnaire : intro}
                 </div>
             </React.Fragment>

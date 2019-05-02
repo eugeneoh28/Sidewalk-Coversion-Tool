@@ -5,7 +5,7 @@ import StreetViewContainer from "./StreetViewContainer";
 import EditMapContainer from "./EditMapContainer"
 import ValidationContainer from "./ValidationContainer";
 import NavBar from "./NavBarContainer"
-
+import FooterContainer from './FooterContainer';
 
 const sampleData = {
   "type": "FeatureCollection",
@@ -137,22 +137,25 @@ class MainContainer extends Component {
 
     render(){
         const map = (
-                <div className="container">
-                    <div className="row">
-                        <div className="col">
+            <table className ="container">
+                <tbody>
+                    <tr>
+                        <td>
                             <EditMapContainer layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(layers) => this.updateLayerData(layers)} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
-                        </div>
-                        <div className="col">
-                            <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
+                        </td>
+                        <td>
+                             <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="2" >
                             {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)}/> : null}
-                        </div>
-                    </div>
-                </div>
-            )
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+               
+        )
 
         const setCoord = (
                 <div className="container">

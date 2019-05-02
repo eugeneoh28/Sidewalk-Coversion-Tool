@@ -1,8 +1,5 @@
 import  React,{Component} from "react";
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import Dropdown from 'react-bootstrap/Dropdown';
-import { RadioGroup, RadioButton } from 'react-radio-buttons';
+import {Form,ButtonGroup,Dropdown} from "react-bootstrap";
 
 class QuestionContainer extends Component {
     constructor(props){
@@ -42,20 +39,20 @@ class QuestionContainer extends Component {
             return <Dropdown.Item key={index} eventKey={index} onSelect={this.questionHandler}>{element["question"]}</Dropdown.Item>
         });
         let answers = this.props.question[this.state.q_no].answers.map((ans, index) => {
-            return <RadioButton key={index} value={ans} rootColor="lightblue"> {ans} </RadioButton>
+            return <Form.Check custom type='radio' key={index} label={ans} />
         });        
         return (
             <div>
-                <h3> {this.props.question[this.state.q_no].question}</h3>
+                <p> {this.props.question[this.state.q_no].question}</p>
                 <Dropdown as={ButtonGroup}>
                     <Dropdown.Toggle split variant="success" id="dropdown-custom-2">Choose validation question</Dropdown.Toggle>
                     <Dropdown.Menu>
                         {dropdowns}
                     </Dropdown.Menu>
                 </Dropdown>
-                <RadioGroup onClick={this.answerHandler}>
+                <Form onClick={this.answerHandler}>
                     {answers}
-                </RadioGroup>
+                </Form>
             </div>
         );
     }
