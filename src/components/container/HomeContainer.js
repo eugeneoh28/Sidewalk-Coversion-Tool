@@ -74,22 +74,26 @@ class MainContainer extends Component {
 
     render(){
         const map = (
-                <div className="container">
-                    <div className="row">
-                        <div className="col">
+               
+            <table className ="container">
+                <tbody>
+                    <tr>
+                        <td>
                             <EditMapContainer layers={this.state.layers} coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
-                        </div>
-                        <div className="col">
+                        </td>
+                        <td>
                             <StreetViewContainer coord={this.state.coord} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="2" >
                             {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)}/> : null}
-                        </div>
-                    </div>
-                </div>
-            )
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+               
+        )
 
         const setCoord = (
                 <div className="container">

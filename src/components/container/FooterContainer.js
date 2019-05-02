@@ -5,7 +5,7 @@ class FooterContainer extends Component {
     render(){
         return (
             <div className="footer">
-                <label>Copyright 2019 University of Washinton - Paul G. Allen School of Computer & Engineering</label> 
+                <label>Copyright 2019 Paul G. Allen School of Computer & Engineering - University of Washinton</label> 
             </div>
         );
     }

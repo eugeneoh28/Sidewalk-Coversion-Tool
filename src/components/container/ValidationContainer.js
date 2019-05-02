@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import QuestionContainer from "../presentational/QuestionContainer";
+import Form from 'react-bootstrap/Form'
 import data from "../validateQuestions";
+import '../../App.css'
 
 class ValidationContainer extends Component {
     constructor(props){
@@ -12,7 +14,7 @@ class ValidationContainer extends Component {
             data: this.props.data
         }
         this.dataset = data;
-        //later, we can fetch data from this class
+       // later, we can fetch data from this class
         // this.dataset = {
         //     "sidewalk": [
         //         {
@@ -90,7 +92,7 @@ class ValidationContainer extends Component {
         
         return (
             <React.Fragment>
-                <div className="validation" style={{overflow:'auto', maxHeight:400}}>
+                <div className="validation">
                     {this.state.questions.length != 0 ? questionnaire : intro}
                 </div>
             </React.Fragment>
