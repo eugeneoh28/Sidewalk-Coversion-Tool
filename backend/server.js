@@ -32,12 +32,12 @@ app.get('/getbbox', (req, res) => {
   var parser = JSONStream.parse(["features"]); // filter features only 
   stream.pipe(parser);
   var linestring;
-  console.error(req.query.point1);
-  let query = [[JSON.parse(req.query.point1), JSON.parse(req.query.point2)]]
+  let query = [JSON.parse(req.query.point1), JSON.parse(req.query.point2)]
+  console.log(query);
   sample.geometry.coordinates = query
   // ref: https://www.tutorialspoint.com/nodejs/nodejs_streams.htm
   parser.on('data', function (featuresArray) {
-    linestring = InnerLineString.getLineString(sample, featuresArray);
+    linestring = InnerLineString.getLineString(query, featuresArray);
   });
   
   parser.on('end', function () {

@@ -21,8 +21,8 @@ class EditMapContainer extends Component {
     // create map
     this.map = L.map('editMap',{
       minZoom:15,
-      maxZoom:18 // less than or equal 18, cannot be greater than 18
-    }).setView(this.props.streetview, 18);
+      maxZoom:20 // less than or equal 18, cannot be greater than 18
+    }).setView(this.props.streetview, 20);
 
     // create base map layers and add them to map
     // reference: https://leafletjs.com/examples/layers-control/
@@ -39,12 +39,6 @@ class EditMapContainer extends Component {
     };
     // add base maps, overlays is null
     L.control.layers(baseMaps,null,{collapsed:false}).addTo(this.map);
-
-        this.sv_marker = new L.marker(this.props.streetview, {
-            draggable:true,
-            autoPan:true
-        }).addTo(this.map)
-
 
     var editableLayer = this.props.layers
     this.map.addLayer(this.props.layers)
