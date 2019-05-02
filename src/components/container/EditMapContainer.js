@@ -6,12 +6,34 @@ import L from 'leaflet'
 import 'leaflet-draw'
 import { EMLINK } from "constants";
 
+let sample = { "type": "Feature", 
+          "properties": { 
+            "CREATEDATE": "2015\/11\/01", 
+            "CREATEUSER": "Kucera", 
+            "NOTES": null, 
+            "ROUTABLE": "Yes", 
+            "DETACHED": "No", 
+            "SURFACE": "CONCRETE", 
+            "DENVER": "Yes", 
+            "SIDEWALKTY": "Sidewalk", 
+            "CROSSINGTY": null, 
+            "ADJACENTRO": "Local", 
+            "LAST_EDITE": null, 
+            "LAST_EDI_1": null, 
+            "EDITSOURCE": null, 
+            "Z_LEV": null 
+          }, 
+            "geometry": { 
+              "type": "MultiLineString", 
+              "coordinates": [ [ [ -105.064505124458719, 39.615026433418052 ], [ -105.064472132338778, 39.615004994340097 ] ] ] 
+            } 
+          }
+
 class EditMapContainer extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
-
 
   handleClick() {
     alert("hi");

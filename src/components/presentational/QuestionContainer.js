@@ -42,7 +42,7 @@ class QuestionContainer extends Component {
             return <Dropdown.Item key={index} eventKey={index} onSelect={this.questionHandler}>{element["question"]}</Dropdown.Item>
         });
         let answers = this.props.question[this.state.q_no].answers.map((ans, index) => {
-            return <RadioButton key={index} value={ans} rootColor="lightblue"> {ans} </RadioButton>
+            return <RadioButton key={index} value={ans} rootColor="lightblue" iconSize={20} iconInnerSize={9}> {ans} </RadioButton>
         });        
         return (
             <div>
@@ -53,7 +53,7 @@ class QuestionContainer extends Component {
                         {dropdowns}
                     </Dropdown.Menu>
                 </Dropdown>
-                <RadioGroup onClick={this.answerHandler}>
+                <RadioGroup horizontal onClick={this.answerHandler}>
                     {answers}
                 </RadioGroup>
             </div>
