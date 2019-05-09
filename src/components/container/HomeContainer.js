@@ -26,10 +26,6 @@ class MainContainer extends Component {
     constructor() {
         super();
         let nlayers = new L.FeatureGroup();
-        let glayers = L.geoJson(sampleData);
-        glayers.eachLayer((l) => {
-            nlayers.addLayer(l)
-        })
         this.state = {
             // [ latitude, longitude]
             coord: [],
@@ -102,15 +98,21 @@ class MainContainer extends Component {
 
         if (response.status !== 200) throw Error(body.message)
 
-        console.log(body)
-        let midlat = (lat1 + lat2) / 2
-        let midlong = (long1 + long2) / 2
-        console.log(typeof (lat1))
+        let nlayers = this.state.layers;
+        console.log(body.res)
+        let glayers = L.geoJson(body.res);
+        glayers.eachLayer((l) => {
+             nlayers.addLayer(l)
+        })
+        let midlat = (lat1 + lat2)/2
+        let midlong = (long1 + long2)/2
+        console.log(typeof(lat1))
         console.log(midlat)
         console.log(midlong)
         this.setState({
-            coord: [[lat1, long1], [lat2, long2]],
-            streetview: [midlat, midlong]
+            coord : [[long1, lat1],[long2, lat2]],
+            streetview: [midlong, midlat],
+            layers : nlayers
         })
     }
 

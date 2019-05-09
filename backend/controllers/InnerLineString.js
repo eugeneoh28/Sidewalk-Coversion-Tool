@@ -19,25 +19,29 @@ import * as turf from "@turf/turf";
           + featureArray is defined
 */
 
-var getLineString = function (bbox, featuresArray) {
+const sampleData = {
+  "type": "FeatureCollection",
+  "features": []
+};
+
+var getLineString = function (linebox, featuresArray) {
      var pointsCollection; // FeatureColection of Points 
      var coords = [];  // array of coordinates
      var linestring = undefined;  // intersection line
+     var line = turf.lineString(linebox);
+     var bbox = turf.bbox(line);
+     var bboxPolygon = turf.bboxPolygon(bbox);
+     sampleData.features = [];
+     
      for (var i = 0; i < featuresArray.length; i++) {
-          pointsCollection = turf.lineIntersect(featuresArray[i], bbox);
-          // need at least two points to draw a lineString
-          if (pointsCollection.features.length >= 2) {
-               // extract coordinate from each point and save it in "coords" array
-               pointsCollection.features.forEach(feature => {
-                    coords.push(feature.geometry.coordinates);
-               });
-               // create LineString and copy properties over
-               linestring = turf.lineString(coords);
-               linestring.properties = featuresArray[i].properties;
-               break; // only one line interection returned
+          pointsCollection = turf.lineIntersect(featuresArray[i], bboxPolygon);
+          let intersect = turf.intersect(bboxPolygon, featuresArray[i]);
+          if (intersect != null) {
+               sampleData.features.push(featuresArray[i])
           }
+          
      }
-     return linestring;
+     return sampleData;
 }
 
 
