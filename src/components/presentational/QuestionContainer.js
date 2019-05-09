@@ -76,9 +76,9 @@ class QuestionContainer extends Component {
         </Dropdown> */}
                 <Row>
                     <Col>
-                        <Form.Group controlId="question-list">
+                        <Form.Group>
                             <Form.Label >Select one of the questions below:</Form.Label>
-                            <Form.Control as="select" multiple onChange={this.questionHandler} >
+                            <Form.Control className="questionlist" as="select" multiple onChange={this.questionHandler} >
                                 {questionList}
                             </Form.Control>
                         </Form.Group>
