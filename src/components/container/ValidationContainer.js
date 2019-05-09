@@ -3,7 +3,8 @@ import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import QuestionContainer from "../presentational/QuestionContainer";
 import Form from 'react-bootstrap/Form'
 import data from "../validateQuestions";
-import '../../App.css'
+
+import '../css/Validation.css'
 
 class ValidationContainer extends Component {
     constructor(props){
