@@ -1,41 +1,44 @@
-import React,{Component} from "react";
+import React, { Component } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import L from "leaflet";
-import "../../App.css"
 import StreetViewContainer from "./StreetViewContainer";
 import EditMapContainer from "./EditMapContainer"
 import ValidationContainer from "./ValidationContainer";
 import NavBar from "./NavBarContainer"
-import FooterContainer from './FooterContainer';
+import "../css/Home.css"
 
 const sampleData = {
-  "type": "FeatureCollection",
-  "features": [
-    { "type": "Feature", "properties": { },
-     "geometry": { "type": 
-              "LineString", 
-              "coordinates": [[-122.336445, 47.614721],
-                             [-122.335718, 47.615127]]
-                 } }
-  ]
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature", "properties": {},
+            "geometry": {
+                "type":
+                    "LineString",
+                "coordinates": [[-122.336445, 47.614721],
+                [-122.335718, 47.615127]]
+            }
+        }
+    ]
 };
 
 class MainContainer extends Component {
-    constructor(){
+    constructor() {
         super();
         let nlayers = new L.FeatureGroup();
         let glayers = L.geoJson(sampleData);
         glayers.eachLayer((l) => {
-             nlayers.addLayer(l)
+            nlayers.addLayer(l)
         })
         this.state = {
-                // [ latitude, longitude]
-                coord : [],
-                streetview: [],
-                lat1: "",
-                long1: "",
-                layers: nlayers,
-                validatedData : {},
-                validation: false
+            // [ latitude, longitude]
+            coord: [],
+            streetview: [],
+            lat1: "",
+            long1: "",
+            layers: nlayers,
+            validatedData: {},
+            validation: false
         };
 
         this.onNextClicked = this.onNextClicked.bind(this);
@@ -58,11 +61,11 @@ class MainContainer extends Component {
     }
 
     //set isNextClicked to true when "Next" button clicked
-    onNextClicked(){
+    onNextClicked() {
         let vData = this.state.layers.toGeoJSON()
         this.setState({
-            validatedData : vData,
-            validation : true
+            validatedData: vData,
+            validation: true
         })
         console.log(this.state.layers.toGeoJSON())
         console.log(this.state.validatedData)
@@ -97,16 +100,16 @@ class MainContainer extends Component {
         const response = await fetch('/getbbox?'.concat(q))
         const body = await response.json();
 
-        if (response.status !== 200) throw Error (body.message)
+        if (response.status !== 200) throw Error(body.message)
 
         console.log(body)
-        let midlat = (lat1 + lat2)/2
-        let midlong = (long1 + long2)/2
-        console.log(typeof(lat1))
+        let midlat = (lat1 + lat2) / 2
+        let midlong = (long1 + long2) / 2
+        console.log(typeof (lat1))
         console.log(midlat)
         console.log(midlong)
         this.setState({
-            coord : [[lat1, long1],[lat2, long2]],
+            coord: [[lat1, long1], [lat2, long2]],
             streetview: [midlat, midlong]
         })
     }
@@ -135,48 +138,46 @@ class MainContainer extends Component {
         })
     }
 
-    render(){
+    render() {
         const map = (
-            <table className ="container">
-                <tbody>
-                    <tr>
-                        <td>
-                            <EditMapContainer layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(layers) => this.updateLayerData(layers)} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
-                        </td>
-                        <td>
-                             <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2" >
-                            {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)}/> : null}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-               
+            <Container className="container">
+                <Row className="row">
+                    <Col>
+                        <EditMapContainer layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(layers) => this.updateLayerData(layers)} reFocusCallback={(lat, lng) => this.reFocus(lat, lng)} />
+                    </Col>
+                    <Col>
+                        <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat, lng)} />
+                    </Col>
+                </Row>
+                <Row className="row">
+                    <Col>
+                        {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)} /> : null}
+                    </Col>
+                </Row>
+            </Container>
+
         )
 
         const setCoord = (
-                <div className="container">
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                          <p>Lat 1:</p>
-                          <textarea onChange={this.changeLat1}/>
-                          <p>Long 1:</p>
-                          <textarea onChange={this.changeLong1} />
-                        </label>
-                        <label>
-                          <p>Lat 2:</p>
-                          <textarea onChange={this.changeLat2}/>
-                          <p>Long 2:</p>
-                          <textarea onChange={this.changeLong2} />
-                        </label>
-                        <br />
-                        <button type="submit">Submit</button>
-                      </form>
-                </div>
-            )
+            <div className="container">
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        <p>Lat 1:</p>
+                        <textarea onChange={this.changeLat1} />
+                        <p>Long 1:</p>
+                        <textarea onChange={this.changeLong1} />
+                    </label>
+                    <label>
+                        <p>Lat 2:</p>
+                        <textarea onChange={this.changeLat2} />
+                        <p>Long 2:</p>
+                        <textarea onChange={this.changeLong2} />
+                    </label>
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        )
 
         return (
             <div className="main">

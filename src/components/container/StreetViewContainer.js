@@ -1,6 +1,6 @@
 //AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0 
 import  React,{Component} from "react";
-
+import "../css/StreetView.css"
 class StreetViewContainer extends Component {
     constructor(props){
         super(props);
