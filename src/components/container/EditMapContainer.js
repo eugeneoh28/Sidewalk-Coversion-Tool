@@ -12,6 +12,10 @@ class EditMapContainer extends Component {
       this.handleClick = this.handleClick.bind(this);
     }
 
+    // highlight_layer(layerID) {
+    //   this.map._layers['name']
+    // }
+
     handleClick() {
       alert("hi");
     }
@@ -30,7 +34,7 @@ class EditMapContainer extends Component {
     this.map = L.map('editMap',{
       minZoom:15,
       maxZoom:20 // less than or equal 18, cannot be greater than 18
-    }).setView(this.props.streetview, 20);
+    }).setView(this.props.streetview, 14);
 
     // create base map layers and add them to map
     // reference: https://leafletjs.com/examples/layers-control/
