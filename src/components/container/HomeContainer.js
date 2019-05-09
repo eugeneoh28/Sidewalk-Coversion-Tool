@@ -7,21 +7,6 @@ import ValidationContainer from "./ValidationContainer";
 import NavBar from "./NavBarContainer"
 import "../css/Home.css"
 
-const sampleData = {
-    "type": "FeatureCollection",
-    "features": [
-        {
-            "type": "Feature", "properties": {},
-            "geometry": {
-                "type":
-                    "LineString",
-                "coordinates": [[-122.336445, 47.614721],
-                [-122.335718, 47.615127]]
-            }
-        }
-    ]
-};
-
 class MainContainer extends Component {
     constructor() {
         super();
@@ -161,25 +146,25 @@ class MainContainer extends Component {
         )
 
         const setCoord = (
-            <div className="container">
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        <p>Lat 1:</p>
-                        <textarea onChange={this.changeLat1} />
-                        <p>Long 1:</p>
-                        <textarea onChange={this.changeLong1} />
-                    </label>
-                    <label>
-                        <p>Lat 2:</p>
-                        <textarea onChange={this.changeLat2} />
-                        <p>Long 2:</p>
-                        <textarea onChange={this.changeLong2} />
-                    </label>
-                    <br />
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-        )
+                <div className="container">
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                          <p>Long 1:</p>
+                          <textarea onChange={this.changeLat1}/>
+                          <p>Lat 1:</p>
+                          <textarea onChange={this.changeLong1} />
+                        </label>
+                        <label>
+                          <p>Long 2:</p>
+                          <textarea onChange={this.changeLat2}/>
+                          <p>Lat 2:</p>
+                          <textarea onChange={this.changeLong2} />
+                        </label>
+                        <br />
+                        <button type="submit">Submit</button>
+                      </form>
+                </div>
+            )
 
         return (
             <div className="main">
