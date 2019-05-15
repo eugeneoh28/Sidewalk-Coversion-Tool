@@ -52,18 +52,12 @@ class QuestionContainer extends Component {
             return <option key={index} value={index} onSelect={this.questionHandler}>{element["question"]}</option>
         });
         let answers = this.props.question[this.state.q_no].answers.map((ans, index) => {
-            // return <Form.Field key={index}>
-            //     <Radio label={ans} value={ans} checked={this.state.answer == ans} onChange={this.answerHandler} />
-            //     {ans == "other" ? <input disabled={this.state.answer !== "other"} placeholder="enter other" /> : null}
-            // </Form.Field>
-           // return <Form2.Check custom type="radio" label={ans} name={ans} id={ans} key={index} />
-
             // DO NOT REMOVE OR CHANGE name and id unless you know what you are doing
             // react-bootstrap uses these attributes to differtiate radios, so that only one chosen at a time
-            return <Form.Group  key={index}>
-                    <Form.Check custom type="radio" value={ans} label={ans} name="answerRadio" id={`answerRadio${index}`} onChange={this.answerHandler}/>
-                    {ans == "other" ? <Form.Control disabled = {this.state.answer !== "other"} placeholder="enter other" /> : null}
-                    </Form.Group>
+            return <Form.Group key={index}>
+                <Form.Check custom type="radio" value={ans} label={ans} name="answerRadio" id={`answerRadio${index}`} onChange={this.answerHandler} />
+                {ans == "other" ? <Form.Control disabled={this.state.answer !== "other"} placeholder="enter other" /> : null}
+            </Form.Group>
         });
         return (
             <Container>
@@ -89,7 +83,7 @@ class QuestionContainer extends Component {
                         <fieldset>
                             <Form.Group as={Row}>
                                 <Col sm={10}>
-                                   {answers}
+                                    {answers}
                                 </Col>
                             </Form.Group>
                         </fieldset>
