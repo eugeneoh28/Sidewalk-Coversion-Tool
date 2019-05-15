@@ -1,6 +1,6 @@
 //AujBA0Eg9HhDkefJMk1QB-w08xgP3gmjc3uWtU1mU82JXZmQmPlJlWq14WjhIDV0 
 import  React,{Component} from "react";
-
+import "../css/StreetView.css"
 class StreetViewContainer extends Component {
     constructor(props){
         super(props);
@@ -19,7 +19,9 @@ class StreetViewContainer extends Component {
                 center: new window.Microsoft.Maps.Location(lat, long),
                 mapTypeId: window.Microsoft.Maps.MapTypeId.streetside,
                 streetsideOptions: {
-                    overviewMapMode: window.Microsoft.Maps.OverviewMapMode.hidden,
+                    locationToLookAt: new window.Microsoft.Maps.Location(lat, long),
+                    //overviewMapMode: window.Microsoft.Maps.OverviewMapMode.hidden,
+                    showHeadingCompass: true,
                     showExitButton: false
                 }
             });

@@ -5,6 +5,7 @@ import { render } from 'react-dom'
 import L from 'leaflet'
 import 'leaflet-draw'
 import { EMLINK } from "constants";
+import "../css/EditMap.css"
 
 class EditMapContainer extends Component {
     constructor(props) {

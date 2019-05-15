@@ -1,55 +1,10 @@
-
-#editMap {
-  height:85vh;
-  position: relative;
-  margin: auto;
-}
-
-#streetMap{
-  height:85vh;
-  position: relative;
-  margin: auto;
-}
-
 #main {
   height:100vh;
   width:100vw;
-}
-
-.container {
-  position: relative;
-	display: table;
-	margin-top: 5px;
-	width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 50px;
 }
 
 h1, h2, h3, h4 {
   font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   font-weight: 300;
   color: white;
-}
-
-.header {
-  height: 80px;
-  border-bottom: 5px solid #b7a57a;
-  background-color: #4b2e83;
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  height: 40px;
-  line-height: 40px;
-  width: 100%;
-  text-align: center;
-  background: #fff;
-  border-top: 1px solid #f9a11b;
-  font-size: 14px;
-}
-.validation {
-  overflow:'auto';
-  max-height:400
 }
