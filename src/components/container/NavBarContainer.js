@@ -4,22 +4,30 @@ class NavBarContainer extends Component {
     constructor(props){
         super(props);
         this.state = {
-            finalStage : false,
+            validation : false,
             buttonText: "Next"
         }
     }
 
     next = () => {
-        this.props.onNextClicked();
-        this.setState({
-            finalStage: true,
-            buttonText:"Submit to OSM"
-        })
+        if (!this.state.validation) {
+            this.props.onNextClicked();
+            this.setState({
+                validation: true,
+                buttonText:"Next Feature"
+            })
+            this.props.nextFeature();
+        } else if (!this.props.finished){
+            this.props.nextFeature();
+        } else {
+            this.setState({
+                buttonText:"Submit to OSM"
+            })
+        }
     };
 
     reset = () => {
         this.setState({
-            finalStage: false,
             buttonText : "Next"
         })
     }

@@ -19,7 +19,11 @@ class MainContainer extends Component {
                 long1: "",
                 layers: nlayers,
                 validatedData : {},
-                validation: false
+                validation: false,
+                highLightFeature: null,
+                ids: [],
+                id: null,
+                finished: false
         };
 
         this.onNextClicked = this.onNextClicked.bind(this);
@@ -28,6 +32,7 @@ class MainContainer extends Component {
         this.changeLong1 = this.changeLong1.bind(this);
         this.changeLat2 = this.changeLat2.bind(this);
         this.changeLong2 = this.changeLong2.bind(this);
+        this.nextFeature = this.nextFeature.bind(this);
     }
 
     //update this.state
@@ -41,6 +46,25 @@ class MainContainer extends Component {
         })
     }
 
+    nextFeature() {
+        if (this.state.id == null && this.state.ids.length > 0) {
+            this.setState({
+                id: 0
+            })
+        } else if (this.state.id == this.state.ids.length-1) {
+            this.setState({
+                finished: true
+            })
+        } else {
+            let previd = this.state.id;
+            previd += 1;
+            this.setState({
+                id: previd
+            })
+        }
+        console.log(this.state.id);
+    }
+
     //set isNextClicked to true when "Next" button clicked
     onNextClicked(){
         let vData = this.state.layers.toGeoJSON()
@@ -52,9 +76,15 @@ class MainContainer extends Component {
         console.log(this.state.validatedData)
     }
 
-    updateLayerData(nlayers) {
+    updateLayerData(nlayers, layer) {
+        console.log(layer)
+        let id = nlayers.getLayerId(layer)
+        console.log(layer)
+        let ids = this.props.ids;
+        ids.push(id);
         this.setState({
-            layers: nlayers
+            layers: nlayers,
+            ids: ids
         })
     }
 
@@ -84,11 +114,16 @@ class MainContainer extends Component {
         if (response.status !== 200) throw Error (body.message)
 
         let nlayers = this.state.layers;
+        let ids = this.state.ids;
         console.log(body.res)
         let glayers = L.geoJson(body.res);
+        console.log(glayers)
         glayers.eachLayer((l) => {
-             nlayers.addLayer(l)
+            console.log("here!")
+             nlayers.addLayer(l);
+             ids.push(nlayers.getLayerId(l));
         })
+        console.log(ids);
         let midlat = (lat1 + lat2)/2
         let midlong = (long1 + long2)/2
         console.log(typeof(lat1))
@@ -97,7 +132,8 @@ class MainContainer extends Component {
         this.setState({
             coord : [[long1, lat1],[long2, lat2]],
             streetview: [midlong, midlat],
-            layers : nlayers
+            layers : nlayers,
+            ids:ids
         })
     }
 
@@ -131,7 +167,7 @@ class MainContainer extends Component {
                 <tbody>
                     <tr>
                         <td>
-                            <EditMapContainer layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(layers) => this.updateLayerData(layers)} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
+                            <EditMapContainer id = {this.state.id} ids={this.state.ids} layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(nlayers,layer) => this.updateLayerData(nlayers, layer)} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
                         </td>
                         <td>
                              <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
@@ -170,7 +206,7 @@ class MainContainer extends Component {
 
         return (
             <div className="main">
-                <NavBar onNextClicked={() => this.onNextClicked()}></NavBar>
+                <NavBar finished={this.state.finished} nextFeature={() => this.nextFeature()} onNextClicked={() => this.onNextClicked()}></NavBar>
                 {this.state.coord.length ? map : setCoord}
             </div>
         );

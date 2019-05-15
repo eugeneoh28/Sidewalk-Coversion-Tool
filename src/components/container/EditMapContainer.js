@@ -18,10 +18,37 @@ class EditMapContainer extends Component {
 
     handleClick() {
       alert("hi");
-    }
+    };
+
+    
     componentDidUpdate(prevProps) {
         let prevCoord = prevProps.streetview;
         let currCoord = this.props.streetview;
+        let currId = this.props.id;
+
+
+        //let highLightFeature = this.props.highLightFeature;
+
+        let highlight = {
+        'color': '#d10606',
+        'weight': 15,
+        'opacity': 1
+        };
+
+        let defaultStyle = {
+          'color' : 'blue',
+          'weight' : 3,
+          'opacity': 1
+        };
+
+        this.editableLayer.setStyle(defaultStyle);
+        console.log(currId);
+        if (currId != null) {
+          console.log(this.props.ids[currId])
+          this.editableLayer.getLayer(this.props.ids[currId]).setStyle(highlight);
+        }
+        console.log("Update!");
+        //console.log(this.map._layers)
         //check if any change in coordinate
         if (currCoord[0] !== prevCoord[0] || currCoord[1] !== prevCoord[1]) {
             this.sv_marker.setLatLng(currCoord)
@@ -52,7 +79,7 @@ class EditMapContainer extends Component {
     // add base maps, overlays is null
     L.control.layers(baseMaps,null,{collapsed:false}).addTo(this.map);
 
-    var editableLayer = this.props.layers
+    this.editableLayer = this.props.layers
     this.map.addLayer(this.props.layers)
 
     this.sv_marker = new L.marker(this.props.streetview, {
@@ -72,7 +99,7 @@ class EditMapContainer extends Component {
       },
   
       edit: {
-        featureGroup: editableLayer, //REQUIRED!!
+        featureGroup: this.editableLayer, //REQUIRED!!
         remove: true
       }
     };
@@ -103,9 +130,8 @@ class EditMapContainer extends Component {
       layer.type = "Feature";
       layer.properties = layer.properties || {};
       console.log(layer);
-      editableLayer.addLayer(layer);
-      this.props.updateLayerData(editableLayer);
-      console.log(editableLayer)
+      this.editableLayer.addLayer(layer);
+      this.props.updateLayerData(this.editableLayer, layer);
     });
     // https://leafletjs.com/reference-1.4.0.html#layergroup
     drawPluginOptions.edit.featureGroup
