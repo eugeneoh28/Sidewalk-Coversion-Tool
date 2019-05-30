@@ -163,41 +163,39 @@ class MainContainer extends Component {
 
     render() {
         const map = (
-            <table className ="container">
-                <tbody>
-                    <tr>
-                        <td>
-                            <EditMapContainer id = {this.state.id} ids={this.state.ids} layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(nlayers,layer) => this.updateLayerData(nlayers, layer)} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
-                        </td>
-                        <td>
-                             <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2" >
-                            {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)}/> : null}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            // <table className ="container">
+            //     <tbody>
+            //         <tr>
+            //             <td>
+            //                 <EditMapContainer id = {this.state.id} ids={this.state.ids} layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(nlayers,layer) => this.updateLayerData(nlayers, layer)} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
+            //             </td>
+            //             <td>
+            //                  <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
+            //             </td>
+            //         </tr>
+            //         <tr>
+            //             <td colSpan="2" >
+            //                 {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)}/> : null}
+            //             </td>
+            //         </tr>
+            //     </tbody>
+            // </table>
                
-            // <Container className="container">
-            //     <Row className="row">
-            //         <Col>
-            //             <EditMapContainer layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(layers) => this.updateLayerData(layers)} reFocusCallback={(lat, lng) => this.reFocus(lat, lng)} />
-            //         </Col>
-            //         <Col>
-            //             <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat, lng)} />
-            //         </Col>
-            //     </Row>
-            //     <Row className="row">
-            //         <Col>
-            //             {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)} /> : null}
-            //         </Col>
-            //     </Row>
-            // </Container>
-
-
+            <Container className="container">
+                <Row className="row">
+                    <Col>
+                        <EditMapContainer id = {this.state.id} ids={this.state.ids} layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(nlayers,layer) => this.updateLayerData(nlayers, layer)} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
+                    </Col>
+                    <Col>
+                        <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat, lng)} />
+                    </Col>
+                </Row>
+                <Row className="row">
+                    <Col>
+                        {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)} /> : null}
+                    </Col>
+                </Row>
+            </Container>
         )
 
         const setCoord = (

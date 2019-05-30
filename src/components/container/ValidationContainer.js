@@ -113,7 +113,7 @@ class ValidationContainer extends Component {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.confirmation} variant="contained" color="primary">Next</Button>
-                    <Button onClick={this.closeDialog} variant="contained" color="primary">Cancel</Button>
+                    <Button onClick={this.closeDialog} variant="contained" color="default">Cancel</Button>
                 </DialogActions>
             </Dialog>
         );
