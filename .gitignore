@@ -16,6 +16,7 @@ package-lock.json
 .hot-update.js
 .hot-update.json
 /public/hot
+/public/bundle.js
 
 # misc
 .DS_Store

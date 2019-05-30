@@ -6,6 +6,7 @@ import EditMapContainer from "./EditMapContainer"
 import ValidationContainer from "./ValidationContainer";
 import NavBar from "./NavBarContainer"
 import "../css/Home.css"
+import queryString from 'query-string';
 
 class MainContainer extends Component {
     constructor() {
@@ -17,24 +18,34 @@ class MainContainer extends Component {
                 streetview: [],
                 lat1: "",
                 long1: "",
+                lat2: "",
+                long2: "",
                 layers: nlayers,
                 validatedData : {},
                 validation: false,
                 highLightFeature: null,
                 ids: [],
                 id: null,
-                finished: false
+                finished: false,
+                loaded: false
         };
 
         this.onNextClicked = this.onNextClicked.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.changeLat1 = this.changeLat1.bind(this);
-        this.changeLong1 = this.changeLong1.bind(this);
-        this.changeLat2 = this.changeLat2.bind(this);
-        this.changeLong2 = this.changeLong2.bind(this);
-        this.nextFeature = this.nextFeature.bind(this);
+        this.loadData = this.loadData.bind(this);
     }
 
+    componentDidMount() {
+        console.log("HERE")
+        console.log(this.props)
+        let parsed = queryString.parse(this.props.location.search);
+        let p1 = JSON.parse(parsed.p1);
+        let p2 = JSON.parse(parsed.p2);
+        console.log(p1)
+        console.log(p2)
+
+        this.loadData(p1[0], p1[1], p2[0], p2[1])
+
+    }
     //update this.state
     reFocus(lat, long) {
         const currcoord = this.state.streetview;
@@ -44,6 +55,7 @@ class MainContainer extends Component {
             streetview: [lat, long],
             currlayers: currlayers
         })
+
     }
 
     nextFeature() {
@@ -95,13 +107,8 @@ class MainContainer extends Component {
         console.log(this.state.validatedData)
     }
 
-    handleSubmit = async (event) => {
-        event.preventDefault();
+    async loadData (lat1, long1, lat2, long2) {
         console.log("here");
-        let lat1 = Number(this.state.lat1)
-        let long1 = Number(this.state.long1)
-        let lat2 = Number(this.state.lat2)
-        let long2 = Number(this.state.long2)
 
         let point1 = String([lat1, long1])
         let point2 = String([lat2, long2])
@@ -133,54 +140,12 @@ class MainContainer extends Component {
             coord : [[long1, lat1],[long2, lat2]],
             streetview: [midlong, midlat],
             layers : nlayers,
-            ids:ids
+            ids:ids,
+            loaded: true
         })
     }
-
-    changeLat1(e) {
-        this.setState({
-            lat1: e.target.value
-        })
-    }
-
-    changeLong1(e) {
-        this.setState({
-            long1: e.target.value
-        })
-    }
-
-    changeLat2(e) {
-        this.setState({
-            lat2: e.target.value
-        })
-    }
-
-    changeLong2(e) {
-        this.setState({
-            long2: e.target.value
-        })
-    }
-
     render() {
         const map = (
-            // <table className ="container">
-            //     <tbody>
-            //         <tr>
-            //             <td>
-            //                 <EditMapContainer id = {this.state.id} ids={this.state.ids} layers={this.state.layers} streetview={this.state.streetview} coord={this.state.coord} updateLayerData={(nlayers,layer) => this.updateLayerData(nlayers, layer)} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)}/>
-            //             </td>
-            //             <td>
-            //                  <StreetViewContainer streetview={this.state.streetview} reFocusCallback={(lat, lng) => this.reFocus(lat,lng)} />
-            //             </td>
-            //         </tr>
-            //         <tr>
-            //             <td colSpan="2" >
-            //                 {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)}/> : null}
-            //             </td>
-            //         </tr>
-            //     </tbody>
-            // </table>
-               
             <Container className="container">
                 <Row className="row">
                     <Col>
@@ -196,33 +161,11 @@ class MainContainer extends Component {
                     </Col>
                 </Row>
             </Container>
-        )
-
-        const setCoord = (
-                <div className="container">
-                    <form onSubmit={this.handleSubmit}>
-                        <label>
-                          <p>Long 1:</p>
-                          <textarea onChange={this.changeLat1}/>
-                          <p>Lat 1:</p>
-                          <textarea onChange={this.changeLong1} />
-                        </label>
-                        <label>
-                          <p>Long 2:</p>
-                          <textarea onChange={this.changeLat2}/>
-                          <p>Lat 2:</p>
-                          <textarea onChange={this.changeLong2} />
-                        </label>
-                        <br />
-                        <button type="submit">Submit</button>
-                      </form>
-                </div>
             )
-
         return (
             <div className="main">
                 <NavBar finished={this.state.finished} nextFeature={() => this.nextFeature()} onNextClicked={() => this.onNextClicked()}></NavBar>
-                {this.state.coord.length ? map : setCoord}
+                {this.state.loaded ? map : null}
             </div>
         );
     }
