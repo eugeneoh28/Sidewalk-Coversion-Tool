@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import QuestionContainer from "../presentational/QuestionContainer";
-import { Button, Modal } from "react-bootstrap";
 import data from "../validateQuestions";
 
+import Radio from '@material-ui/core/Radio';
+// import { RadioGroup, RadioButton } from 'react-radio-buttons';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
 import '../css/Validation.css'
 
 class ValidationContainer extends Component {
@@ -12,7 +21,7 @@ class ValidationContainer extends Component {
         this.state = {
             feature_id: 0,
             questions: [],
-            showDialog: false,
+            showDialog: true,
             data: this.props.data
         }
         this.dataset = data;
@@ -69,6 +78,7 @@ class ValidationContainer extends Component {
                 questions: this.dataset[this.state.feature]
             })
         }
+        this.closeDialog();
     }
 
     // set state to close "Chosing Featuer" dialog
@@ -82,57 +92,38 @@ class ValidationContainer extends Component {
 
     chooseFeature = (e) => {
         this.setState({
-            feature: String(e)
+            feature: String(e.target.value)
         })
     }
+    
     render() {
         const choices = Object.keys(this.dataset).map((element) =>
-            <RadioButton key={element} value={element} iconSize={20} iconInnerSize={8} >{element}</RadioButton>
+            <FormControlLabel key={element} value={element} control={<Radio />} label={element} />
         );
         const intro = (
-            <React.Fragment>
-                <RadioGroup horizontal onChange={this.chooseFeature}>
-                    {choices}
-                </RadioGroup>
-                <Button variant="success" onClick={this.confirmation}>Next</Button>
-            </React.Fragment>
+            <Dialog open={this.state.showDialog} onClose={this.closeDialog}>
+                <DialogTitle>Choose a feature type</DialogTitle>
+                <DialogContent>
+                    <DialogContentText> Which type of feature do you want to validate today? </DialogContentText>
+                    <FormControl component="fieldset">
+                        <RadioGroup row={true} onChange={this.chooseFeature}>
+                            {choices}
+                        </RadioGroup>
+                    </FormControl>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={this.confirmation} variant="contained" color="primary">Next</Button>
+                    <Button onClick={this.closeDialog} variant="contained" color="primary">Cancel</Button>
+                </DialogActions>
+            </Dialog>
         );
         const questionnaire = <QuestionContainer next={(data) => this.next(data)} feature_id={this.state.feature_id} question={this.state.questions} />
-
-        const dialog = (
-            <Modal size="lg" centered show={this.state.showDialog} onHide={this.closeDialog}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Which type of feature do you want to validate today?</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={this.closeDialog}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        );
-
         return (
-            <Modal size="lg" centered show={this.state.showDialog} onHide={this.closeDialog}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Which type of feature do you want to validate today?</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {this.state.questions.length != 0 ? questionnaire : intro}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={this.closeDialog}>
-                        Close
-                </Button>
-                </Modal.Footer>
-            </Modal>
-            /* <React.Fragment>
+            <React.Fragment>
                 <div className="validation">
                     {this.state.questions.length != 0 ? questionnaire : intro}
                 </div>
-                {this.state.showDialog == true ? dialog : null}
-            </React.Fragment> */
+            </React.Fragment>
         );
     }
 }
