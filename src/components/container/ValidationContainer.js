@@ -25,36 +25,6 @@ class ValidationContainer extends Component {
             data: this.props.data
         }
         this.dataset = data;
-        // later, we can fetch data from this class
-        // this.dataset = {
-        //     "sidewalk": [
-        //         {
-        //             "question": " what is 1 + 1?",
-        //             "answers": ["1","2","3","4"]    
-        //         },
-        //         {
-        //             "question": " what is 1 + 2?",
-        //             "answers": ["5","6","7","8"] 
-        //         },
-        //         {
-        //             "question": " what is 1 * 2?",
-        //             "answers": ["9","10","11","12"] 
-        //         }   
-        //     ],
-        //     "crossing": [
-        //         {
-        //             "question": "Are there raised curbs on this crossing?",
-        //             "answers": ["Yes", "No"],
-        //             "datatype" : "curbs"
-        //         },
-        //         {
-        //             "question": "Are there markings on this crossing?",
-        //             "answers": ["Yes", "No"],
-        //             "datatype" : "crossing"
-        //         }
-        //     ]
-
-        // };
     }
 
     next = (data) => {

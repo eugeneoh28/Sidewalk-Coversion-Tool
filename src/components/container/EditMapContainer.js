@@ -46,7 +46,7 @@ class EditMapContainer extends Component {
         console.log(currId);
         if (currId != null) {
           console.log("Id:" + this.props.ids[currId])
-          // this.editableLayer.getLayer(this.props.ids[currId]).setStyle(highlight);
+          this.editableLayer.getLayer(this.props.ids[currId]).setStyle(highlight);
         }
         console.log("Update!");
         //console.log(this.map._layers)

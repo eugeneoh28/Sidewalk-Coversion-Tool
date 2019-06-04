@@ -92,7 +92,8 @@ class MainContainer extends Component {
         console.log(layer)
         let id = nlayers.getLayerId(layer)
         console.log(layer)
-        let ids = this.props.ids;
+        let ids = this.state.ids;
+        console.log(ids);
         ids.push(id);
         this.setState({
             layers: nlayers,
