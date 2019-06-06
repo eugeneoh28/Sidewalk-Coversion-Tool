@@ -21,10 +21,18 @@ class ValidationContainer extends Component {
         this.state = {
             feature_id: 0,
             questions: [],
-            showDialog: true,
+            showOption: this.props.showOption,
             data: this.props.data
         }
         this.dataset = data;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.showOption != this.state.showOption) {
+           this.setState({
+                showOption : nextProps.showOption
+           })
+        }
     }
 
     next = (data) => {
@@ -38,26 +46,18 @@ class ValidationContainer extends Component {
     nextFeature = () => {
         this.props.validateCallback(this.state.data)
         this.setState({
-            feature_id: id++
+            feature_id: id++,
+            showOption: true
         })
     }
 
     confirmation = () => {
         if (this.state.feature != null) {
             this.setState({
-                questions: this.dataset[this.state.feature]
+                questions: this.dataset[this.state.feature],
+                showOption: false
             })
         }
-        this.closeDialog();
-    }
-
-    // set state to close "Chosing Featuer" dialog
-    closeDialog = () => {
-        this.setState({ showDialog: false });
-    }
-    // set state to show "Chosing Featuer" dialog
-    showDialog = () => {
-        this.setState({ showDialog: true });
     }
 
     chooseFeature = (e) => {
@@ -71,27 +71,19 @@ class ValidationContainer extends Component {
             <FormControlLabel key={element} value={element} control={<Radio />} label={element} />
         );
         const intro = (
-            <Dialog open={this.state.showDialog} onClose={this.closeDialog}>
-                <DialogTitle>Choose a feature type</DialogTitle>
-                <DialogContent>
-                    <DialogContentText> Which type of feature do you want to validate today? </DialogContentText>
-                    <FormControl component="fieldset">
+                    <React.Fragment>
+                    Which type of feature do you want to validate today?
                         <RadioGroup row={true} onChange={this.chooseFeature}>
                             {choices}
                         </RadioGroup>
-                    </FormControl>
-                </DialogContent>
-                <DialogActions>
                     <Button onClick={this.confirmation} variant="contained" color="primary">Next</Button>
-                    <Button onClick={this.closeDialog} variant="contained" color="default">Cancel</Button>
-                </DialogActions>
-            </Dialog>
+                    </React.Fragment>
         );
         const questionnaire = <QuestionContainer next={(data) => this.next(data)} feature_id={this.state.feature_id} question={this.state.questions} />
         return (
             <React.Fragment>
                 <div className="validation">
-                    {this.state.questions.length != 0 ? questionnaire : intro}
+                    {this.state.showOption ? intro : questionnaire}
                 </div>
             </React.Fragment>
         );

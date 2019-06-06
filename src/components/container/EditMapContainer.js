@@ -32,7 +32,7 @@ class EditMapContainer extends Component {
 
         let highlight = {
         'color': '#d10606',
-        'weight': 15,
+        'weight': 6,
         'opacity': 1
         };
 

@@ -23,6 +23,7 @@ class MainContainer extends Component {
                 layers: nlayers,
                 validatedData : {},
                 validation: false,
+                showOptions: true,
                 highLightFeature: null,
                 ids: [],
                 id: null,
@@ -82,6 +83,7 @@ class MainContainer extends Component {
         let vData = this.state.layers.toGeoJSON()
         this.setState({
             validatedData: vData,
+            showOptions: true,
             validation: true
         })
         console.log(this.state.layers.toGeoJSON())
@@ -158,7 +160,7 @@ class MainContainer extends Component {
                 </Row>
                 <Row className="row">
                     <Col>
-                        {this.state.validation ? <ValidationContainer data={this.state.validatedData} validateCallback={(data) => this.updateData(data)} /> : null}
+                        {this.state.validation ? <ValidationContainer showOption={this.state.showOptions} data={this.state.validatedData} validateCallback={(data) => this.updateData(data)} /> : null}
                     </Col>
                 </Row>
             </Container>
