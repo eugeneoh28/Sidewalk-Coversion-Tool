@@ -14,3 +14,6 @@ Eugene
 2. Add relevants questions based upon what type of metadata we need to collect (user will vet)
 3. Write in the relevant api calls to grab bounding box and post bounding box
 4. Synch the position marker with the streetview map (DONE)
+
+Sample URL:
+    http://localhost:3000/?p1=[-105.064758817381005,39.615040105467756]&p2=[-105.067583037648319,39.614821148671751]
